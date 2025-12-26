@@ -30,6 +30,7 @@ export function Navbar() {
   }, [location]);
 
   const navLinks = [
+    { label: "Space Apps", href: "/space-apps" },
     { label: "Shop", href: "/shop" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
