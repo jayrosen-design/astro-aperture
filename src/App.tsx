@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Gallery from "./pages/Gallery";
 import SpaceApps from "./pages/SpaceApps";
 import Shop from "./pages/Shop";
+import Gear from "./pages/Gear";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/gallery/:slug" element={<Gallery />} />
           <Route path="/space-apps" element={<SpaceApps />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/gear" element={<Gear />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
