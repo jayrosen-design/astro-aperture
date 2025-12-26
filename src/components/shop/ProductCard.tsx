@@ -55,9 +55,9 @@ export function ProductCard({ product, index }: ProductCardProps) {
           </div>
         )}
 
-        <p className="text-lg font-semibold text-primary mb-4">{cleanPrice}</p>
+        <p className="text-lg font-semibold text-foreground mb-4">{cleanPrice}</p>
 
-        <Button asChild className="w-full group/btn">
+        <Button asChild variant="outline" className="w-full group/btn">
           <a
             href={product.link}
             target="_blank"

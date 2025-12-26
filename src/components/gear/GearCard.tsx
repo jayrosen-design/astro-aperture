@@ -40,12 +40,13 @@ export function GearCard({ product }: GearCardProps) {
         </h3>
 
         {product.price && (
-          <p className="text-sm text-muted-foreground">{product.price}</p>
+          <p className="text-sm text-foreground">{product.price}</p>
         )}
 
         {product.externalUrl && (
           <Button
             size="sm"
+            variant="outline"
             className="w-full gap-2"
             onClick={(e) => {
               e.stopPropagation();
