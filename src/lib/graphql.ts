@@ -74,7 +74,7 @@ export const GET_ASTRO_POSTS = `
 `;
 
 export const GET_POSTS_BY_TAG = `
-  query GetPostsByTag($tag: String!, $first: Int) {
+  query GetPostsByTag($tag: String!, $first: Int, $after: String) {
     posts(
       where: { 
         categoryId: 559,
@@ -82,6 +82,7 @@ export const GET_POSTS_BY_TAG = `
         orderby: { field: DATE, order: DESC } 
       }
       first: $first
+      after: $after
     ) {
       nodes {
         id
@@ -114,9 +115,14 @@ export const GET_POSTS_BY_TAG = `
           }
         }
       }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
     }
   }
 `;
+
 
 export const GET_ASTRO_PRODUCTS = `
   query GetAstroProducts($first: Int) {
@@ -271,16 +277,25 @@ export interface SinglePostResponse {
   post: Post;
 }
 
+export type GalleryCategory = {
+  slug: string;
+  name: string;
+  icon: string;
+  /** optional tag slug to query (when URL slug differs from WP tag) */
+  tag?: string;
+};
+
 // Gallery categories mapping
-export const GALLERY_CATEGORIES = [
+export const GALLERY_CATEGORIES: GalleryCategory[] = [
   { slug: "milky-way", name: "Milky Way", icon: "✨" },
   { slug: "galaxy", name: "Galaxies", icon: "🌀" },
   { slug: "nebula", name: "Nebulae", icon: "🌌" },
   { slug: "cluster", name: "Clusters", icon: "⭐" },
-  { slug: "constellation", name: "Constellations", icon: "🔭" },
   { slug: "planets", name: "Planets", icon: "🪐" },
   { slug: "sun", name: "Sun", icon: "☀️" },
   { slug: "moon", name: "Moon", icon: "🌙" },
   { slug: "meteor", name: "Meteors", icon: "☄️" },
-  { slug: "aircraft", name: "Aircraft", icon: "✈️" },
-] as const;
+  { slug: "rockets", name: "Rockets", icon: "🚀", tag: "aircraft" },
+  { slug: "videos", name: "Videos", icon: "🎞️", tag: "timelapse" },
+];
+
