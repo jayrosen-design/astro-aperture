@@ -6,12 +6,11 @@ import { HeroCursor } from "./HeroCursor";
 
 interface HeroProps {
   featuredPost?: Post;
-  cursorImages?: Post[];
 }
 
 const HERO_BACKGROUND = "https://jayrosen.design/wp-content/uploads/2025/05/Panorama-3am-stacked-copy-edit-copy-72-scaled.jpg";
 
-export function Hero({ featuredPost, cursorImages = [] }: HeroProps) {
+export function Hero({ featuredPost }: HeroProps) {
   return (
     <section data-hero-section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -74,8 +73,8 @@ export function Hero({ featuredPost, cursorImages = [] }: HeroProps) {
         </div>
       </div>
 
-      {/* Custom cursor */}
-      <HeroCursor images={cursorImages} />
+      {/* Custom magnifying cursor */}
+      <HeroCursor backgroundImage={HERO_BACKGROUND} zoomLevel={3} />
     </section>
   );
 }
