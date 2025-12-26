@@ -3,33 +3,65 @@ import { fetchGraphQL } from "@/lib/graphql";
 
 export const GET_GEAR_LIST = `
   query GetGearList {
-    cameras: products(where: { category: "cameras", status: PUBLISH }) {
-      nodes { ...GearProductFields }
+    cameras: products(where: { category: "cameras", status: "PUBLISH" }) {
+      nodes {
+        id
+        name
+        image { sourceUrl }
+        ... on ExternalProduct {
+          price
+          externalUrl
+          buttonText
+        }
+      }
     }
-    lenses: products(where: { category: "camera-lens", status: PUBLISH }) {
-      nodes { ...GearProductFields }
+    lenses: products(where: { category: "camera-lens", status: "PUBLISH" }) {
+      nodes {
+        id
+        name
+        image { sourceUrl }
+        ... on ExternalProduct {
+          price
+          externalUrl
+          buttonText
+        }
+      }
     }
-    cameraAccessories: products(where: { category: "camera-accessories", status: PUBLISH }) {
-      nodes { ...GearProductFields }
+    cameraAccessories: products(where: { category: "camera-accessories", status: "PUBLISH" }) {
+      nodes {
+        id
+        name
+        image { sourceUrl }
+        ... on ExternalProduct {
+          price
+          externalUrl
+          buttonText
+        }
+      }
     }
-    telescopes: products(where: { category: "telescopes", status: PUBLISH }) {
-      nodes { ...GearProductFields }
+    telescopes: products(where: { category: "telescopes", status: "PUBLISH" }) {
+      nodes {
+        id
+        name
+        image { sourceUrl }
+        ... on ExternalProduct {
+          price
+          externalUrl
+          buttonText
+        }
+      }
     }
-    telescopeAccessories: products(where: { category: "telescope-accessories", status: PUBLISH }) {
-      nodes { ...GearProductFields }
-    }
-  }
-
-  fragment GearProductFields on Product {
-    id
-    name
-    image {
-      sourceUrl
-    }
-    ... on ExternalProduct {
-      price
-      externalUrl
-      buttonText
+    telescopeAccessories: products(where: { category: "telescope-accessories", status: "PUBLISH" }) {
+      nodes {
+        id
+        name
+        image { sourceUrl }
+        ... on ExternalProduct {
+          price
+          externalUrl
+          buttonText
+        }
+      }
     }
   }
 `;
