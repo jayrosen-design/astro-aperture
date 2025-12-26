@@ -120,20 +120,44 @@ export function parseMediaFromContent(content: string): MediaItem[] {
 }
 
 /**
- * Extracts the filename from a URL for comparison
+ * Extracts the base filename from a URL for comparison (without size suffixes)
  */
-function getFilenameFromUrl(url: string): string {
+function getBaseFilename(url: string): string {
   try {
-    // Remove query params and get the path
     const cleanUrl = url.split("?")[0];
     const parts = cleanUrl.split("/");
     const filename = parts[parts.length - 1];
-    
-    // Remove size suffixes like -1024x768, -scaled, etc.
-    return filename.replace(/-\d+x\d+/, "").replace(/-scaled/, "").toLowerCase();
+    // Remove size suffixes like -1024x768, -scaled, etc. and extension
+    return filename
+      .replace(/-\d+x\d+/g, "")
+      .replace(/-scaled/g, "")
+      .replace(/\.[^.]+$/, "")
+      .toLowerCase();
   } catch {
     return url.toLowerCase();
   }
+}
+
+/**
+ * Extracts dimensions from URL if present (e.g., -1024x768)
+ */
+function getImageDimensions(url: string): { width: number; height: number } | null {
+  const match = url.match(/-(\d+)x(\d+)/);
+  if (match) {
+    return { width: parseInt(match[1], 10), height: parseInt(match[2], 10) };
+  }
+  return null;
+}
+
+/**
+ * Gets the "size" of an image from URL for comparison
+ */
+function getImageSize(url: string): number {
+  const dims = getImageDimensions(url);
+  if (dims) return dims.width * dims.height;
+  // If no dimensions in URL, assume it's full size (highest priority)
+  if (url.includes("-scaled")) return 1000000; // scaled is usually large
+  return 10000000; // No size suffix = likely original/full size
 }
 
 /**
@@ -141,15 +165,34 @@ function getFilenameFromUrl(url: string): string {
  */
 function isSameImage(url1: string, url2: string): boolean {
   if (!url1 || !url2) return false;
-  
-  // Direct URL match
   if (url1 === url2) return true;
   
-  // Compare filenames (handles different sizes of same image)
-  const filename1 = getFilenameFromUrl(url1);
-  const filename2 = getFilenameFromUrl(url2);
+  const base1 = getBaseFilename(url1);
+  const base2 = getBaseFilename(url2);
   
-  return filename1 === filename2;
+  return base1 === base2;
+}
+
+/**
+ * Given a list of image URLs that are the same image at different sizes,
+ * return only the largest version
+ */
+function keepLargestVersion(urls: string[]): string {
+  if (urls.length === 0) return "";
+  if (urls.length === 1) return urls[0];
+  
+  let largest = urls[0];
+  let largestSize = getImageSize(urls[0]);
+  
+  for (let i = 1; i < urls.length; i++) {
+    const size = getImageSize(urls[i]);
+    if (size > largestSize) {
+      largestSize = size;
+      largest = urls[i];
+    }
+  }
+  
+  return largest;
 }
 
 /**
@@ -165,10 +208,15 @@ function isVideoType(type: MediaType): boolean {
  */
 export function processPostMedia(post: Post): ProcessedPost {
   const videos: MediaItem[] = [];
-  const images: MediaItem[] = [];
-  const featuredUrl = post.featuredImage?.node?.sourceUrl;
+  const featuredUrl = post.featuredImage?.node?.sourceUrl || "";
 
-  // Parse media from content first
+  // Collect all image URLs (featured + content) for deduplication
+  const allImageUrls: string[] = [];
+  if (featuredUrl) {
+    allImageUrls.push(featuredUrl);
+  }
+
+  // Parse media from content
   if (post.content) {
     const contentMedia = parseMediaFromContent(post.content);
     
@@ -176,29 +224,50 @@ export function processPostMedia(post: Post): ProcessedPost {
       if (isVideoType(item.type)) {
         videos.push(item);
       } else if (item.type === "image") {
-        // Only add if not a duplicate of featured image
-        if (!isSameImage(item.url, featuredUrl || "")) {
-          images.push(item);
-        }
+        allImageUrls.push(item.url);
       }
     }
   }
 
-  // Add featured image after videos
-  const featuredImage: MediaItem | null = featuredUrl
-    ? {
-        type: "image",
-        url: featuredUrl,
-        alt: post.featuredImage?.node?.altText || post.title,
-      }
-    : null;
+  // Group images by their base filename
+  const imageGroups = new Map<string, string[]>();
+  for (const url of allImageUrls) {
+    const base = getBaseFilename(url);
+    if (!imageGroups.has(base)) {
+      imageGroups.set(base, []);
+    }
+    imageGroups.get(base)!.push(url);
+  }
 
-  // Construct final array: [Videos..., FeaturedImage, OtherImages...]
-  const mediaItems: MediaItem[] = [
-    ...videos,
-    ...(featuredImage ? [featuredImage] : []),
-    ...images,
-  ];
+  // Keep only the largest version of each unique image
+  const uniqueImages: MediaItem[] = [];
+  const addedBases = new Set<string>();
+  
+  for (const [base, urls] of imageGroups) {
+    if (addedBases.has(base)) continue;
+    addedBases.add(base);
+    
+    const largestUrl = keepLargestVersion(urls);
+    uniqueImages.push({
+      type: "image",
+      url: largestUrl,
+      alt: isSameImage(largestUrl, featuredUrl) 
+        ? (post.featuredImage?.node?.altText || post.title)
+        : undefined,
+    });
+  }
+
+  // Sort: featured image first among images (if it was kept)
+  uniqueImages.sort((a, b) => {
+    const aIsFeatured = isSameImage(a.url, featuredUrl);
+    const bIsFeatured = isSameImage(b.url, featuredUrl);
+    if (aIsFeatured && !bIsFeatured) return -1;
+    if (!aIsFeatured && bIsFeatured) return 1;
+    return 0;
+  });
+
+  // Construct final array: [Videos..., Images...]
+  const mediaItems: MediaItem[] = [...videos, ...uniqueImages];
 
   return {
     ...post,
