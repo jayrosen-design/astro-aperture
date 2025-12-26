@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { ProductGrid } from "@/components/shop/ProductGrid";
 import { useAstroProducts } from "@/hooks/useAstroProducts";
+import { FlashlightCursor } from "@/components/home/FlashlightCursor";
 
 const Shop = () => {
   const { data, isLoading, error } = useAstroProducts(50);
@@ -8,7 +9,8 @@ const Shop = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-24 lg:pt-32">
+      <div data-flashlight-section className="relative min-h-screen pt-24 lg:pt-32 overflow-hidden">
+        <FlashlightCursor color="rgba(239, 68, 68, 0.12)" size={350} />
         <div className="container mx-auto px-4 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">

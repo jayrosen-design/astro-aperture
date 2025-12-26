@@ -5,6 +5,7 @@ import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { CategoryPills } from "@/components/gallery/CategoryPills";
 import { useInfiniteAstroPosts, useInfinitePostsByTag } from "@/hooks/useAstroPosts";
 import { GALLERY_CATEGORIES } from "@/lib/graphql";
+import { FlashlightCursor } from "@/components/home/FlashlightCursor";
 
 const POSTS_PER_PAGE = 24;
 
@@ -47,7 +48,8 @@ const Gallery = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-24 lg:pt-32">
+      <div data-flashlight-section className="relative min-h-screen pt-24 lg:pt-32 overflow-hidden">
+        <FlashlightCursor color="rgba(239, 68, 68, 0.12)" size={350} />
         <div className="container mx-auto px-4 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">

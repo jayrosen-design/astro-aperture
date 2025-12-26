@@ -52,7 +52,7 @@ export function GalleryGrid({
 
   return (
     <>
-      <div className="gallery-grid">
+      <div className="gallery-grid relative z-20">
         {processedPosts.map((post, index) => (
           <GalleryCard
             key={post.id}

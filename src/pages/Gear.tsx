@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { GearSection } from "@/components/gear/GearSection";
 import { useGear } from "@/hooks/useGear";
 import { Loader2 } from "lucide-react";
+import { FlashlightCursor } from "@/components/home/FlashlightCursor";
 
 export default function Gear() {
   const { data, isLoading, error } = useGear();
@@ -16,7 +17,8 @@ export default function Gear() {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-24 pb-16">
+      <div data-flashlight-section className="relative min-h-screen pt-24 pb-16 overflow-hidden">
+        <FlashlightCursor color="rgba(239, 68, 68, 0.12)" size={350} />
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-8">
