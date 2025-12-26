@@ -32,6 +32,7 @@ export function Navbar() {
   const navLinks = [
     { label: "Space Apps", href: "/space-apps" },
     { label: "Shop", href: "/shop" },
+    { label: "Gear", href: "/gear" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ];
