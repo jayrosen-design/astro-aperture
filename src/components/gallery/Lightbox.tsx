@@ -335,7 +335,7 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
               {post.tags.nodes.map((tag) => (
                 <span
                   key={tag.slug}
-                  className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full"
+                  className="text-xs px-2 py-1 bg-muted/70 text-foreground rounded-full"
                 >
                   {tag.name}
                 </span>
