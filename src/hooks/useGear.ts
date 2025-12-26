@@ -3,7 +3,7 @@ import { fetchGraphQL } from "@/lib/graphql";
 
 export const GET_GEAR_LIST = `
   query GetGearList {
-    cameras: products(where: { category: "cameras", status: "PUBLISH" }) {
+    cameras: products(where: { category: "camera", status: "PUBLISH" }) {
       nodes {
         id
         name
@@ -39,7 +39,7 @@ export const GET_GEAR_LIST = `
         }
       }
     }
-    telescopes: products(where: { category: "telescopes", status: "PUBLISH" }) {
+    telescopes: products(where: { category: "telescope", status: "PUBLISH" }) {
       nodes {
         id
         name
