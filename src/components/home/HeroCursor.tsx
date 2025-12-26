@@ -1,50 +1,55 @@
 import { useRef, useEffect, useState, useCallback } from "react";
-import { Post } from "@/lib/graphql";
 
 interface HeroCursorProps {
-  images: Post[];
+  backgroundImage: string;
+  zoomLevel?: number;
 }
 
-export function HeroCursor({ images }: HeroCursorProps) {
+export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLElement | null>(null);
   const mousePos = useRef({ x: 0, y: 0 });
+  const bgPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number>();
   const [isHovering, setIsHovering] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout>();
 
   const updateCursorPosition = useCallback(() => {
     if (cursorRef.current) {
       cursorRef.current.style.left = `${mousePos.current.x}px`;
       cursorRef.current.style.top = `${mousePos.current.y}px`;
+      
+      // Update background position for magnifying effect
+      cursorRef.current.style.backgroundPosition = `${bgPos.current.x}% ${bgPos.current.y}%`;
     }
     rafId.current = requestAnimationFrame(updateCursorPosition);
   }, []);
 
   useEffect(() => {
-    // Find the hero section container
     containerRef.current = document.querySelector('[data-hero-section]');
     
     if (!containerRef.current) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
+      
+      // Calculate position relative to the hero section for background positioning
+      const rect = containerRef.current!.getBoundingClientRect();
+      const relativeX = (e.clientX - rect.left) / rect.width;
+      const relativeY = (e.clientY - rect.top) / rect.height;
+      
+      bgPos.current = {
+        x: relativeX * 100,
+        y: relativeY * 100
+      };
     };
 
-    const handleMouseEnter = () => {
-      setIsHovering(true);
-    };
-
-    const handleMouseLeave = () => {
-      setIsHovering(false);
-    };
+    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseLeave = () => setIsHovering(false);
 
     containerRef.current.addEventListener('mousemove', handleMouseMove);
     containerRef.current.addEventListener('mouseenter', handleMouseEnter);
     containerRef.current.addEventListener('mouseleave', handleMouseLeave);
 
-    // Start the animation loop
     rafId.current = requestAnimationFrame(updateCursorPosition);
 
     return () => {
@@ -59,30 +64,8 @@ export function HeroCursor({ images }: HeroCursorProps) {
     };
   }, [updateCursorPosition]);
 
-  // Image cycling interval
-  useEffect(() => {
-    if (isHovering && images.length > 1) {
-      intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % images.length);
-      }, 1000);
-    } else {
-      setCurrentIndex(0);
-    }
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isHovering, images.length]);
-
-  if (!images.length) return null;
-
-  const currentImage = images[currentIndex]?.featuredImage?.node?.sourceUrl;
-
   return (
     <>
-      {/* Apply cursor-none to hero when hovering */}
       <style>
         {`
           [data-hero-section]:hover {
@@ -91,7 +74,6 @@ export function HeroCursor({ images }: HeroCursorProps) {
         `}
       </style>
       
-      {/* Custom cursor thumbnail */}
       <div
         ref={cursorRef}
         className={`fixed pointer-events-none z-40 transition-opacity duration-200 ${
@@ -99,19 +81,16 @@ export function HeroCursor({ images }: HeroCursorProps) {
         }`}
         style={{
           transform: 'translate(-50%, -50%)',
+          width: '120px',
+          height: '120px',
+          borderRadius: '12px',
+          border: '2px solid hsl(var(--primary))',
+          boxShadow: '0 0 20px hsl(var(--primary) / 0.4)',
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: `${zoomLevel * 100}%`,
+          backgroundRepeat: 'no-repeat',
         }}
-      >
-        <div className="w-24 h-24 rounded-lg border-2 border-primary overflow-hidden shadow-lg shadow-primary/30">
-          {currentImage && (
-            <img
-              src={currentImage}
-              alt="Gallery preview"
-              className="w-full h-full object-cover transition-opacity duration-300"
-              key={currentIndex}
-            />
-          )}
-        </div>
-      </div>
+      />
     </>
   );
 }

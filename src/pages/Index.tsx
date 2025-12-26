@@ -6,14 +6,13 @@ import { useAstroPosts } from "@/hooks/useAstroPosts";
 import { Mail } from "lucide-react";
 
 const Index = () => {
-  const { data } = useAstroPosts(12); // Fetch more posts for cursor images
+  const { data } = useAstroPosts(1);
   const posts = data?.posts?.nodes || [];
   const featuredPost = posts[0];
 
   return (
     <Layout>
-      <Hero featuredPost={featuredPost} cursorImages={posts} />
-      <AboutSection />
+      <Hero featuredPost={featuredPost} />
       <CategoryShowcase />
       
       {/* Contact Section */}
