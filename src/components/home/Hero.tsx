@@ -2,16 +2,18 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Post } from "@/lib/graphql";
+import { HeroCursor } from "./HeroCursor";
 
 interface HeroProps {
   featuredPost?: Post;
+  cursorImages?: Post[];
 }
 
 const HERO_BACKGROUND = "https://jayrosen.design/wp-content/uploads/2025/05/Panorama-3am-stacked-copy-edit-copy-72-scaled.jpg";
 
-export function Hero({ featuredPost }: HeroProps) {
+export function Hero({ featuredPost, cursorImages = [] }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section data-hero-section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -71,6 +73,9 @@ export function Hero({ featuredPost }: HeroProps) {
           <div className="w-1 h-2 bg-muted-foreground/50 rounded-full animate-pulse" />
         </div>
       </div>
+
+      {/* Custom cursor */}
+      <HeroCursor images={cursorImages} />
     </section>
   );
 }
