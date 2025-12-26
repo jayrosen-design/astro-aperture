@@ -92,17 +92,17 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
     
     const handleMouseLeave = () => setIsHovering(false);
 
-    const handleClick = (e: MouseEvent) => {
+    const handleMouseDown = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const isOverInteractive = target.closest('button, a, [role="button"]');
-      if (!isOverInteractive) {
+      if (!isOverInteractive && isHovering) {
         setIsCapturing(true);
-        setTimeout(() => setIsCapturing(false), 150);
+        setTimeout(() => setIsCapturing(false), 200);
       }
     };
 
     containerRef.current.addEventListener('mousemove', handleMouseMove);
-    containerRef.current.addEventListener('click', handleClick);
+    containerRef.current.addEventListener('mousedown', handleMouseDown);
     containerRef.current.addEventListener('mouseenter', handleMouseEnter);
     containerRef.current.addEventListener('mouseleave', handleMouseLeave);
 
@@ -113,7 +113,7 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
         containerRef.current.removeEventListener('mousemove', handleMouseMove);
         containerRef.current.removeEventListener('mouseenter', handleMouseEnter);
         containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
-        containerRef.current.removeEventListener('click', handleClick);
+        containerRef.current.removeEventListener('mousedown', handleMouseDown);
       }
       if (rafId.current) {
         cancelAnimationFrame(rafId.current);
