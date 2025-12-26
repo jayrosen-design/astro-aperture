@@ -27,11 +27,11 @@ export function GalleryCard({ post, index, onClick }: GalleryCardProps) {
       }}
       onClick={onClick}
     >
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden aspect-square">
         <img
           src={imageUrl}
           alt={altText}
-          className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
         

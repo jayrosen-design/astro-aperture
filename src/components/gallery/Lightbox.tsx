@@ -75,12 +75,12 @@ function MediaRenderer({ item, isActive, shouldAutoplay }: { item: MediaItem; is
     );
   }
 
-  // Default: image
+  // Default: image - show at actual size/resolution
   return (
     <img
       src={item.url}
       alt={item.alt || "Gallery image"}
-      className="max-w-full max-h-[45vh] lg:max-h-[calc(100vh-14rem)] w-auto h-auto object-contain rounded-lg animate-scale-in"
+      className="max-w-full max-h-[50vh] lg:max-h-[calc(100vh-12rem)] w-auto h-auto object-contain rounded-lg animate-scale-in"
     />
   );
 }
