@@ -113,15 +113,15 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
 
       {/* Content */}
       <div
-        className="h-full flex flex-col lg:flex-row items-center justify-center p-4 lg:p-12 gap-6 lg:gap-12"
+        className="h-full flex flex-col lg:flex-row items-center justify-center p-4 pt-16 pb-12 lg:p-12 lg:pt-16 lg:pb-12 gap-6 lg:gap-12"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Image */}
-        <div className="flex-1 flex items-center justify-center max-h-[60vh] lg:max-h-[80vh] overflow-hidden">
+        <div className="flex-1 flex items-center justify-center min-h-0 w-full lg:w-auto">
           <img
             src={imageUrl}
             alt={altText}
-            className="max-w-full max-h-full object-contain rounded-lg animate-scale-in"
+            className="max-w-full max-h-[55vh] lg:max-h-[calc(100vh-8rem)] w-auto h-auto object-contain rounded-lg animate-scale-in"
           />
         </div>
 
