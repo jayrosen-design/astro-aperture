@@ -7,30 +7,21 @@ interface HeroProps {
   featuredPost?: Post;
 }
 
-export function Hero({ featuredPost }: HeroProps) {
-  const backgroundImage = featuredPost?.featuredImage?.node?.sourceUrl;
+const HERO_BACKGROUND = "https://jayrosen.design/wp-content/uploads/2025/05/Panorama-3am-stacked-copy-edit-copy-72-scaled.jpg";
 
+export function Hero({ featuredPost }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      {backgroundImage && (
-        <div className="absolute inset-0">
-          <img
-            src={backgroundImage}
-            alt="Featured astrophotography"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
-        </div>
-      )}
-
-      {/* Fallback gradient background */}
-      {!backgroundImage && (
-        <div className="absolute inset-0 bg-gradient-space">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cosmic-blue/20 via-transparent to-transparent" />
-        </div>
-      )}
+      <div className="absolute inset-0">
+        <img
+          src={HERO_BACKGROUND}
+          alt="Panoramic astrophotography of the Milky Way"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
