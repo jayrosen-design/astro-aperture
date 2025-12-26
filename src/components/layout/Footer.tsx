@@ -52,14 +52,6 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/shop"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Shop Prints
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/about"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
@@ -68,10 +60,26 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/contact"
+                  to="/space-apps"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Contact
+                  Space Apps
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/gear"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Gear
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/shop"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Shop Prints
                 </Link>
               </li>
             </ul>
@@ -90,7 +98,7 @@ export function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a
-                href="https://www.facebook.com/astro.aperture"
+                href="https://www.facebook.com/rosen.jay/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -98,7 +106,7 @@ export function Footer() {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://www.linkedin.com/company/astro-aperture/"
+                href="https://www.linkedin.com/in/jayrosenartist/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
@@ -106,7 +114,7 @@ export function Footer() {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="mailto:contact@astroaperture.com"
+                href="mailto:studio@jayrosen.design"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
               >
                 <Mail className="w-5 h-5" />
