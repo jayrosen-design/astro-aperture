@@ -80,7 +80,7 @@ function MediaRenderer({ item, isActive, shouldAutoplay }: { item: MediaItem; is
     <img
       src={item.url}
       alt={item.alt || "Gallery image"}
-      className="max-w-full max-h-[55vh] lg:max-h-[calc(100vh-8rem)] w-auto h-auto object-contain rounded-lg animate-scale-in"
+      className="max-w-full max-h-[45vh] lg:max-h-[calc(100vh-14rem)] w-auto h-auto object-contain rounded-lg animate-scale-in"
     />
   );
 }
@@ -97,41 +97,43 @@ function ThumbnailStrip({
   if (items.length <= 1) return null;
 
   return (
-    <div className="flex gap-2 justify-center mt-4 overflow-x-auto pb-2 px-4 max-w-full">
-      {items.map((item, index) => {
-        const isVideo = item.type === "video" || item.type === "youtube" || item.type === "vimeo";
-        const thumbnailUrl = item.thumbnailUrl || (item.type === "image" ? item.url : null);
+    <div className="sticky bottom-0 w-full bg-background/80 backdrop-blur-sm py-3 mt-4">
+      <div className="flex gap-2 justify-center overflow-x-auto pb-1 px-4 max-w-full">
+        {items.map((item, index) => {
+          const isVideo = item.type === "video" || item.type === "youtube" || item.type === "vimeo";
+          const thumbnailUrl = item.thumbnailUrl || (item.type === "image" ? item.url : null);
 
-        return (
-          <button
-            key={index}
-            onClick={() => onSelect(index)}
-            className={cn(
-              "relative flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-all",
-              currentIndex === index
-                ? "border-primary ring-2 ring-primary/50"
-                : "border-transparent hover:border-muted-foreground/50"
-            )}
-          >
-            {thumbnailUrl ? (
-              <img
-                src={thumbnailUrl}
-                alt={`Thumbnail ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full bg-muted flex items-center justify-center">
-                <Play className="w-6 h-6 text-muted-foreground" />
-              </div>
-            )}
-            {isVideo && thumbnailUrl && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/50">
-                <Play className="w-6 h-6 text-foreground" />
-              </div>
-            )}
-          </button>
-        );
-      })}
+          return (
+            <button
+              key={index}
+              onClick={() => onSelect(index)}
+              className={cn(
+                "relative flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all",
+                currentIndex === index
+                  ? "border-primary ring-2 ring-primary/50 scale-105"
+                  : "border-border/50 hover:border-muted-foreground/50 opacity-70 hover:opacity-100"
+              )}
+            >
+              {thumbnailUrl ? (
+                <img
+                  src={thumbnailUrl}
+                  alt={`Thumbnail ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-muted flex items-center justify-center">
+                  <Play className="w-6 h-6 text-muted-foreground" />
+                </div>
+              )}
+              {isVideo && thumbnailUrl && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/50">
+                  <Play className="w-6 h-6 text-foreground" />
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
