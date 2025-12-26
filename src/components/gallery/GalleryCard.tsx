@@ -54,7 +54,7 @@ export function GalleryCard({ post, index, onClick }: GalleryCardProps) {
               {post.tags.nodes.slice(0, 2).map((tag) => (
                 <span
                   key={tag.slug}
-                  className="text-xs px-2 py-0.5 bg-primary/20 text-primary rounded-full"
+                  className="text-xs px-2 py-0.5 bg-muted/70 text-foreground rounded-full"
                 >
                   {tag.name}
                 </span>

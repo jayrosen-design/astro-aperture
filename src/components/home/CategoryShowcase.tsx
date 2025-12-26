@@ -39,7 +39,7 @@ export function CategoryShowcase() {
               
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8">
-                <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground transition-colors">
                   {category.name}
                 </h3>
               </div>
