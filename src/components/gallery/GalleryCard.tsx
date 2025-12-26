@@ -1,6 +1,6 @@
 import { ProcessedPost, getMediaCounts } from "@/lib/mediaParser";
 import { cn } from "@/lib/utils";
-import { Images, Play } from "lucide-react";
+import { Play } from "lucide-react";
 
 interface GalleryCardProps {
   post: ProcessedPost;
@@ -35,21 +35,12 @@ export function GalleryCard({ post, index, onClick }: GalleryCardProps) {
           loading="lazy"
         />
         
-        {/* Media indicators - only show if more than 1 unique media item */}
-        {(mediaCounts.totalVideos > 0 || mediaCounts.totalImages > 1) && (
-          <div className="absolute top-3 right-3 flex gap-2">
-            {mediaCounts.totalVideos > 0 && (
-              <div className="flex items-center gap-1 bg-background/80 backdrop-blur-sm text-foreground text-xs px-2 py-1 rounded-full">
-                <Play className="w-3 h-3" />
-                {mediaCounts.totalVideos > 1 && <span>{mediaCounts.totalVideos}</span>}
-              </div>
-            )}
-            {mediaCounts.totalImages > 1 && (
-              <div className="flex items-center gap-1 bg-background/80 backdrop-blur-sm text-foreground text-xs px-2 py-1 rounded-full">
-                <Images className="w-3 h-3" />
-                <span>{mediaCounts.totalImages}</span>
-              </div>
-            )}
+        {/* Video indicator - only show if post contains video */}
+        {mediaCounts.totalVideos > 0 && (
+          <div className="absolute top-3 right-3">
+            <div className="flex items-center gap-1 bg-background/80 backdrop-blur-sm text-foreground text-xs px-2 py-1 rounded-full">
+              <Play className="w-3 h-3" />
+            </div>
           </div>
         )}
 
