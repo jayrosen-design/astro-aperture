@@ -52,7 +52,7 @@ export default function SpaceApps() {
           )}
 
           {!isLoading && !error && apps.length > 0 && (
-            <div className="flex flex-col gap-12 lg:gap-16 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
               {apps.map((app) => (
                 <AppCard key={app.id} app={app} />
               ))}
