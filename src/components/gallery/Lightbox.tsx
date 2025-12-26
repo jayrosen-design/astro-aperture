@@ -1,30 +1,180 @@
-import { useEffect, useCallback } from "react";
-import { Post } from "@/lib/graphql";
-import { X, ChevronLeft, ChevronRight, Calendar, Tag } from "lucide-react";
+import { useEffect, useCallback, useState } from "react";
+import { ProcessedPost, MediaItem } from "@/lib/mediaParser";
+import { X, ChevronLeft, ChevronRight, Calendar, Tag, Images, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface LightboxProps {
-  post: Post | null;
-  posts: Post[];
+  post: ProcessedPost | null;
+  posts: ProcessedPost[];
   onClose: () => void;
-  onNavigate: (post: Post) => void;
+  onNavigate: (post: ProcessedPost) => void;
+}
+
+function MediaRenderer({ item, isActive }: { item: MediaItem; isActive: boolean }) {
+  if (item.type === "youtube") {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full max-w-4xl aspect-video">
+          {isActive ? (
+            <iframe
+              src={`${item.url}?autoplay=0&rel=0`}
+              className="w-full h-full rounded-lg"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title="YouTube video"
+            />
+          ) : (
+            <div className="w-full h-full bg-muted rounded-lg flex items-center justify-center">
+              <Play className="w-16 h-16 text-muted-foreground" />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (item.type === "vimeo") {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full max-w-4xl aspect-video">
+          {isActive ? (
+            <iframe
+              src={item.url}
+              className="w-full h-full rounded-lg"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              title="Vimeo video"
+            />
+          ) : (
+            <div className="w-full h-full bg-muted rounded-lg flex items-center justify-center">
+              <Play className="w-16 h-16 text-muted-foreground" />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (item.type === "video") {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <video
+          src={item.url}
+          controls
+          className="max-w-full max-h-full rounded-lg"
+          preload="metadata"
+        />
+      </div>
+    );
+  }
+
+  // Default: image
+  return (
+    <img
+      src={item.url}
+      alt={item.alt || "Gallery image"}
+      className="max-w-full max-h-[55vh] lg:max-h-[calc(100vh-8rem)] w-auto h-auto object-contain rounded-lg animate-scale-in"
+    />
+  );
+}
+
+function ThumbnailStrip({
+  items,
+  currentIndex,
+  onSelect,
+}: {
+  items: MediaItem[];
+  currentIndex: number;
+  onSelect: (index: number) => void;
+}) {
+  if (items.length <= 1) return null;
+
+  return (
+    <div className="flex gap-2 justify-center mt-4 overflow-x-auto pb-2 px-4 max-w-full">
+      {items.map((item, index) => {
+        const isVideo = item.type === "video" || item.type === "youtube" || item.type === "vimeo";
+        const thumbnailUrl = item.thumbnailUrl || (item.type === "image" ? item.url : null);
+
+        return (
+          <button
+            key={index}
+            onClick={() => onSelect(index)}
+            className={cn(
+              "relative flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-all",
+              currentIndex === index
+                ? "border-primary ring-2 ring-primary/50"
+                : "border-transparent hover:border-muted-foreground/50"
+            )}
+          >
+            {thumbnailUrl ? (
+              <img
+                src={thumbnailUrl}
+                alt={`Thumbnail ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-muted flex items-center justify-center">
+                <Play className="w-6 h-6 text-muted-foreground" />
+              </div>
+            )}
+            {isVideo && thumbnailUrl && (
+              <div className="absolute inset-0 flex items-center justify-center bg-background/50">
+                <Play className="w-6 h-6 text-foreground" />
+              </div>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
 }
 
 export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
-  const currentIndex = post ? posts.findIndex((p) => p.id === post.id) : -1;
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const currentPostIndex = post ? posts.findIndex((p) => p.id === post.id) : -1;
+  const mediaItems = post?.mediaItems || [];
 
-  const goToPrevious = useCallback(() => {
-    if (currentIndex > 0) {
-      onNavigate(posts[currentIndex - 1]);
-    }
-  }, [currentIndex, posts, onNavigate]);
+  // Reset media index when post changes
+  useEffect(() => {
+    setCurrentMediaIndex(0);
+  }, [post?.id]);
 
-  const goToNext = useCallback(() => {
-    if (currentIndex < posts.length - 1) {
-      onNavigate(posts[currentIndex + 1]);
+  const goToPreviousPost = useCallback(() => {
+    if (currentPostIndex > 0) {
+      onNavigate(posts[currentPostIndex - 1]);
     }
-  }, [currentIndex, posts, onNavigate]);
+  }, [currentPostIndex, posts, onNavigate]);
+
+  const goToNextPost = useCallback(() => {
+    if (currentPostIndex < posts.length - 1) {
+      onNavigate(posts[currentPostIndex + 1]);
+    }
+  }, [currentPostIndex, posts, onNavigate]);
+
+  const goToPreviousMedia = useCallback(() => {
+    if (currentMediaIndex > 0) {
+      setCurrentMediaIndex((prev) => prev - 1);
+    } else if (currentPostIndex > 0) {
+      // Go to previous post's last media item
+      const prevPost = posts[currentPostIndex - 1];
+      onNavigate(prevPost);
+      // Media index will reset via useEffect, we want last item
+      setTimeout(() => {
+        setCurrentMediaIndex(prevPost.mediaItems.length - 1);
+      }, 0);
+    }
+  }, [currentMediaIndex, currentPostIndex, posts, onNavigate]);
+
+  const goToNextMedia = useCallback(() => {
+    if (currentMediaIndex < mediaItems.length - 1) {
+      setCurrentMediaIndex((prev) => prev + 1);
+    } else if (currentPostIndex < posts.length - 1) {
+      // Go to next post's first media item
+      onNavigate(posts[currentPostIndex + 1]);
+    }
+  }, [currentMediaIndex, mediaItems.length, currentPostIndex, posts, onNavigate]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,17 +185,25 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
           onClose();
           break;
         case "ArrowLeft":
-          goToPrevious();
+          goToPreviousMedia();
           break;
         case "ArrowRight":
-          goToNext();
+          goToNextMedia();
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          goToPreviousPost();
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          goToNextPost();
           break;
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [post, onClose, goToPrevious, goToNext]);
+  }, [post, onClose, goToPreviousMedia, goToNextMedia, goToPreviousPost, goToNextPost]);
 
   useEffect(() => {
     if (post) {
@@ -61,11 +219,10 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
 
   if (!post) return null;
 
-  const imageUrl = post.featuredImage?.node?.sourceUrl;
-  const altText = post.featuredImage?.node?.altText || post.title;
-
-  // Strip HTML tags from excerpt
+  const currentMedia = mediaItems[currentMediaIndex];
   const cleanExcerpt = post.excerpt?.replace(/<[^>]*>/g, "") || "";
+  const canGoPrev = currentMediaIndex > 0 || currentPostIndex > 0;
+  const canGoNext = currentMediaIndex < mediaItems.length - 1 || currentPostIndex < posts.length - 1;
 
   return (
     <div
@@ -83,28 +240,28 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
       </Button>
 
       {/* Navigation Arrows */}
-      {currentIndex > 0 && (
+      {canGoPrev && (
         <Button
           variant="ghost"
           size="icon"
           className="absolute left-4 top-1/2 -translate-y-1/2 z-10 hover:bg-muted h-12 w-12"
           onClick={(e) => {
             e.stopPropagation();
-            goToPrevious();
+            goToPreviousMedia();
           }}
         >
           <ChevronLeft className="w-8 h-8" />
         </Button>
       )}
 
-      {currentIndex < posts.length - 1 && (
+      {canGoNext && (
         <Button
           variant="ghost"
           size="icon"
           className="absolute right-4 top-1/2 -translate-y-1/2 z-10 hover:bg-muted h-12 w-12"
           onClick={(e) => {
             e.stopPropagation();
-            goToNext();
+            goToNextMedia();
           }}
         >
           <ChevronRight className="w-8 h-8" />
@@ -113,20 +270,27 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
 
       {/* Content */}
       <div
-        className="h-full flex flex-col lg:flex-row items-center justify-center p-4 pt-16 pb-12 lg:p-12 lg:pt-16 lg:pb-12 gap-6 lg:gap-12"
+        className="h-full flex flex-col lg:flex-row items-center justify-center p-4 pt-16 pb-24 lg:p-12 lg:pt-16 lg:pb-12 gap-4 lg:gap-12"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Image */}
-        <div className="flex-1 flex items-center justify-center min-h-0 w-full lg:w-auto">
-          <img
-            src={imageUrl}
-            alt={altText}
-            className="max-w-full max-h-[55vh] lg:max-h-[calc(100vh-8rem)] w-auto h-auto object-contain rounded-lg animate-scale-in"
+        {/* Media Display */}
+        <div className="flex-1 flex flex-col items-center justify-center min-h-0 w-full lg:w-auto">
+          <div className="flex items-center justify-center w-full">
+            {currentMedia && (
+              <MediaRenderer item={currentMedia} isActive={true} />
+            )}
+          </div>
+          
+          {/* Thumbnail Strip */}
+          <ThumbnailStrip
+            items={mediaItems}
+            currentIndex={currentMediaIndex}
+            onSelect={setCurrentMediaIndex}
           />
         </div>
 
         {/* Details Panel */}
-        <div className="w-full lg:w-80 flex-shrink-0 bg-card/50 rounded-lg p-6 max-h-[35vh] lg:max-h-[80vh] overflow-y-auto">
+        <div className="w-full lg:w-80 flex-shrink-0 bg-card/50 rounded-lg p-6 max-h-[30vh] lg:max-h-[80vh] overflow-y-auto">
           <h2 className="font-display text-2xl font-semibold mb-4">
             {post.title}
           </h2>
@@ -135,6 +299,16 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
             <div className="flex items-center gap-2 text-muted-foreground text-sm mb-4">
               <Calendar className="w-4 h-4" />
               <span>{format(new Date(post.date), "MMMM d, yyyy")}</span>
+            </div>
+          )}
+
+          {/* Media count indicator */}
+          {mediaItems.length > 1 && (
+            <div className="flex items-center gap-2 text-muted-foreground text-sm mb-4">
+              <Images className="w-4 h-4" />
+              <span>
+                {currentMediaIndex + 1} of {mediaItems.length} items
+              </span>
             </div>
           )}
 
@@ -162,7 +336,7 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
 
       {/* Counter */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-muted-foreground">
-        {currentIndex + 1} / {posts.length}
+        Post {currentPostIndex + 1} / {posts.length}
       </div>
     </div>
   );
