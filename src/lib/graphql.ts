@@ -280,7 +280,6 @@ export interface SinglePostResponse {
 export type GalleryCategory = {
   slug: string;
   name: string;
-  icon: string;
   /** optional tag slug to query (when URL slug differs from WP tag) */
   tag?: string;
   /** image URL for category card */
@@ -291,63 +290,53 @@ export type GalleryCategory = {
 export const GALLERY_CATEGORIES: GalleryCategory[] = [
   { 
     slug: "milky-way", 
-    name: "Milky Way", 
-    icon: "✨",
+    name: "Milky Way",
     image: "https://jayrosen.design/wp-content/uploads/2020/10/stacked-again-edit-web.png"
   },
   { 
-    slug: "galaxy", 
-    name: "Galaxies", 
-    icon: "🌀",
-    image: "https://jayrosen.design/wp-content/uploads/2022/10/andromeda-500mm-web.jpg"
-  },
-  { 
     slug: "nebula", 
-    name: "Nebulae", 
-    icon: "🌌",
+    name: "Nebulae",
     image: "https://jayrosen.design/wp-content/uploads/2024/06/jayrosen_orion.png"
   },
   { 
+    slug: "galaxy", 
+    name: "Galaxies",
+    image: "https://jayrosen.design/wp-content/uploads/2022/10/andromeda-500mm-web.jpg"
+  },
+  { 
     slug: "cluster", 
-    name: "Clusters", 
-    icon: "⭐",
+    name: "Clusters",
     image: "https://jayrosen.design/wp-content/uploads/2023/12/2023-04-29-09.50.18-3091673463127789266_1769437166-1.jpg"
   },
   { 
-    slug: "planets", 
-    name: "Planets", 
-    icon: "🪐",
-    image: "https://jayrosen.design/wp-content/uploads/2022/10/jupiter-edit2.png"
-  },
-  { 
-    slug: "sun", 
-    name: "Sun", 
-    icon: "☀️",
-    image: "https://jayrosen.design/wp-content/uploads/2022/08/2020-08-14-12.47.33-iss-solar-transit.jpg"
+    slug: "meteor", 
+    name: "Comets & Meteors",
+    image: "https://jayrosen.design/wp-content/uploads/2022/08/2021-07-11-11.19.48-comet-neowise.jpg"
   },
   { 
     slug: "moon", 
-    name: "Moon", 
-    icon: "🌙",
+    name: "Moon",
     image: "https://jayrosen.design/wp-content/uploads/2022/08/2020-08-13-18.14.37-moon.jpg"
   },
   { 
-    slug: "meteor", 
-    name: "Meteors", 
-    icon: "☄️",
-    image: "https://jayrosen.design/wp-content/uploads/2022/08/2021-07-11-11.19.48-comet-neowise.jpg"
+    slug: "sun", 
+    name: "Sun",
+    image: "https://jayrosen.design/wp-content/uploads/2022/08/2020-08-14-12.47.33-iss-solar-transit.jpg"
+  },
+  { 
+    slug: "planets", 
+    name: "Planets",
+    image: "https://jayrosen.design/wp-content/uploads/2022/10/jupiter-edit2.png"
   },
   { 
     slug: "rockets", 
     name: "Rockets", 
-    icon: "🚀", 
     tag: "aircraft",
     image: "https://jayrosen.design/wp-content/uploads/2023/01/2022-11-17-10.07.03-2973573642467157247_1769437166.jpg"
   },
   { 
     slug: "videos", 
     name: "Videos", 
-    icon: "🎞️", 
     tag: "timelapse",
     image: "https://jayrosen.design/wp-content/uploads/2024/06/milkyway-pano-web-scaled.jpg"
   },

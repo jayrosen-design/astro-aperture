@@ -52,7 +52,6 @@ const Gallery = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="font-display text-4xl lg:text-5xl font-semibold mb-4">
-              {categoryInfo && <span className="mr-3">{categoryInfo.icon}</span>}
               {pageTitle}
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">

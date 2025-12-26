@@ -86,7 +86,6 @@ export function Navbar() {
                       to={`/gallery/${category.slug}`}
                       className="cursor-pointer"
                     >
-                      <span className="mr-2">{category.icon}</span>
                       {category.name}
                     </Link>
                   </DropdownMenuItem>
@@ -143,7 +142,6 @@ export function Navbar() {
                     to={`/gallery/${category.slug}`}
                     className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    <span className="mr-2">{category.icon}</span>
                     {category.name}
                   </Link>
                 ))}
