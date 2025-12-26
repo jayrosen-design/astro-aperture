@@ -6,12 +6,13 @@ interface HeroCursorProps {
   zoomLevel?: number;
 }
 
-export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps) {
+export function HeroCursor({ backgroundImage, zoomLevel = 3 }: HeroCursorProps) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLElement | null>(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number>();
   const [isHovering, setIsHovering] = useState(false);
+  const [isCapturing, setIsCapturing] = useState(false);
 
   const cursorWidth = 246;
   const cursorHeight = 153;
@@ -90,9 +91,19 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
     
     const handleMouseLeave = () => setIsHovering(false);
 
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isOverInteractive = target.closest('button, a, [role="button"]');
+      if (!isOverInteractive) {
+        setIsCapturing(true);
+        setTimeout(() => setIsCapturing(false), 200);
+      }
+    };
+
     containerRef.current.addEventListener('mousemove', handleMouseMove);
     containerRef.current.addEventListener('mouseenter', handleMouseEnter);
     containerRef.current.addEventListener('mouseleave', handleMouseLeave);
+    containerRef.current.addEventListener('click', handleClick);
 
     rafId.current = requestAnimationFrame(updateCursorPosition);
 
@@ -101,6 +112,7 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
         containerRef.current.removeEventListener('mousemove', handleMouseMove);
         containerRef.current.removeEventListener('mouseenter', handleMouseEnter);
         containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
+        containerRef.current.removeEventListener('click', handleClick);
       }
       if (rafId.current) {
         cancelAnimationFrame(rafId.current);
@@ -140,7 +152,12 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
         <img 
           src={viewfinderOverlay} 
           alt="" 
-          className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+          className={`absolute inset-0 w-full h-full object-contain pointer-events-none transition-all duration-100 ${
+            isCapturing ? 'brightness-100 saturate-100' : ''
+          }`}
+          style={{
+            filter: isCapturing ? 'brightness(1) saturate(1) sepia(1) hue-rotate(-50deg) saturate(6)' : undefined
+          }}
         />
       </div>
     </>
