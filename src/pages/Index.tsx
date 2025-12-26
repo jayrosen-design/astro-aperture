@@ -13,6 +13,7 @@ const Index = () => {
   return (
     <Layout>
       <Hero featuredPost={featuredPost} />
+      <AboutSection />
       <CategoryShowcase />
       
       {/* Contact Section */}
