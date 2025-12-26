@@ -36,7 +36,6 @@ export function CategoryPills({ showAll = true }: CategoryPillsProps) {
               : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
           )}
         >
-          <span className="mr-1.5">{category.icon}</span>
           {category.name}
         </Link>
       ))}

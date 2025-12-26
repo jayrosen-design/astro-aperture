@@ -41,17 +41,13 @@ export function CategoryShowcase() {
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-3xl lg:text-4xl block mb-2">
-                      {category.icon}
-                    </span>
-                    <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {category.name}
-                    </h3>
-                  </div>
+                  <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {category.name}
+                  </h3>
                   <ArrowRight className="w-6 h-6 text-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                 </div>
               </div>
+                  <ArrowRight className="w-6 h-6 text-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
             </Link>
           ))}
         </div>
