@@ -19,19 +19,19 @@ export function Starfield() {
   const dimensionsRef = useRef({ width: 0, height: 0 });
 
   const initStars = useCallback((width: number, height: number) => {
-    const starCount = Math.floor(400 + Math.random() * 400); // 400-800 stars
+    const starCount = Math.floor(500 + Math.random() * 300); // 500-800 stars
     const stars: Star[] = [];
 
     for (let i = 0; i < starCount; i++) {
-      const baseOpacity = 0.2 + Math.random() * 0.8;
+      const baseOpacity = 0.3 + Math.random() * 0.7;
       stars.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: 0.5 + Math.random() * 2,
+        size: 0.3 + Math.random() * 1.5, // Smaller stars
         opacity: baseOpacity,
         baseOpacity,
-        speed: 0.1 + Math.random() * 0.3,
-        twinkleSpeed: 0.5 + Math.random() * 2,
+        speed: 0.01 + Math.random() * 0.02, // Much slower drift
+        twinkleSpeed: 0.3 + Math.random() * 0.8, // Gentler twinkle
         twinklePhase: Math.random() * Math.PI * 2,
       });
     }

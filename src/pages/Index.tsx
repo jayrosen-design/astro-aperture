@@ -13,13 +13,12 @@ const Index = () => {
 
   return (
     <Layout>
-      <Hero featuredPost={featuredPost} />
-      
-      {/* Starfield background wrapper for content below hero */}
+      {/* Starfield background covering entire page */}
       <div className="relative" style={{ backgroundColor: "#0a0a0a" }}>
         <Starfield />
         
         <div className="relative z-10">
+          <Hero featuredPost={featuredPost} />
           <AboutSection />
           <CategoryShowcase />
           
