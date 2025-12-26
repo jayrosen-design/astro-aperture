@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from "react";
-import viewfinderOverlay from "@/assets/viewfinder-white.png";
+import viewfinderWhite from "@/assets/viewfinder-white.png";
+import viewfinderRed from "@/assets/viewfinder-red.png";
 
 interface HeroCursorProps {
   backgroundImage: string;
@@ -12,6 +13,7 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
   const mousePos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number>();
   const [isHovering, setIsHovering] = useState(false);
+  const [isCapturing, setIsCapturing] = useState(false);
 
   const cursorWidth = 246;
   const cursorHeight = 153;
@@ -90,7 +92,17 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
     
     const handleMouseLeave = () => setIsHovering(false);
 
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isOverInteractive = target.closest('button, a, [role="button"]');
+      if (!isOverInteractive) {
+        setIsCapturing(true);
+        setTimeout(() => setIsCapturing(false), 150);
+      }
+    };
+
     containerRef.current.addEventListener('mousemove', handleMouseMove);
+    containerRef.current.addEventListener('click', handleClick);
     containerRef.current.addEventListener('mouseenter', handleMouseEnter);
     containerRef.current.addEventListener('mouseleave', handleMouseLeave);
 
@@ -101,6 +113,7 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
         containerRef.current.removeEventListener('mousemove', handleMouseMove);
         containerRef.current.removeEventListener('mouseenter', handleMouseEnter);
         containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
+        containerRef.current.removeEventListener('click', handleClick);
       }
       if (rafId.current) {
         cancelAnimationFrame(rafId.current);
@@ -138,7 +151,7 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
       >
         {/* Viewfinder overlay */}
         <img 
-          src={viewfinderOverlay} 
+          src={isCapturing ? viewfinderRed : viewfinderWhite} 
           alt="" 
           className="absolute inset-0 w-full h-full object-contain pointer-events-none"
         />
