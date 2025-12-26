@@ -120,32 +120,85 @@ export function parseMediaFromContent(content: string): MediaItem[] {
 }
 
 /**
+ * Extracts the filename from a URL for comparison
+ */
+function getFilenameFromUrl(url: string): string {
+  try {
+    // Remove query params and get the path
+    const cleanUrl = url.split("?")[0];
+    const parts = cleanUrl.split("/");
+    const filename = parts[parts.length - 1];
+    
+    // Remove size suffixes like -1024x768, -scaled, etc.
+    return filename.replace(/-\d+x\d+/, "").replace(/-scaled/, "").toLowerCase();
+  } catch {
+    return url.toLowerCase();
+  }
+}
+
+/**
+ * Checks if two image URLs refer to the same image (even with different sizes)
+ */
+function isSameImage(url1: string, url2: string): boolean {
+  if (!url1 || !url2) return false;
+  
+  // Direct URL match
+  if (url1 === url2) return true;
+  
+  // Compare filenames (handles different sizes of same image)
+  const filename1 = getFilenameFromUrl(url1);
+  const filename2 = getFilenameFromUrl(url2);
+  
+  return filename1 === filename2;
+}
+
+/**
+ * Checks if a media item is a video type
+ */
+function isVideoType(type: MediaType): boolean {
+  return type === "video" || type === "youtube" || type === "vimeo";
+}
+
+/**
  * Processes a post to extract all media items from featured image and content
+ * Videos are placed first, then featured image, then other images
  */
 export function processPostMedia(post: Post): ProcessedPost {
-  const mediaItems: MediaItem[] = [];
+  const videos: MediaItem[] = [];
+  const images: MediaItem[] = [];
+  const featuredUrl = post.featuredImage?.node?.sourceUrl;
 
-  // Start with featured image
-  if (post.featuredImage?.node?.sourceUrl) {
-    mediaItems.push({
-      type: "image",
-      url: post.featuredImage.node.sourceUrl,
-      alt: post.featuredImage.node.altText || post.title,
-    });
-  }
-
-  // Parse additional media from content
+  // Parse media from content first
   if (post.content) {
     const contentMedia = parseMediaFromContent(post.content);
     
-    // Filter out duplicates (featured image might be in content too)
-    const featuredUrl = post.featuredImage?.node?.sourceUrl;
-    const uniqueMedia = contentMedia.filter(
-      (item) => item.url !== featuredUrl
-    );
-    
-    mediaItems.push(...uniqueMedia);
+    for (const item of contentMedia) {
+      if (isVideoType(item.type)) {
+        videos.push(item);
+      } else if (item.type === "image") {
+        // Only add if not a duplicate of featured image
+        if (!isSameImage(item.url, featuredUrl || "")) {
+          images.push(item);
+        }
+      }
+    }
   }
+
+  // Add featured image after videos
+  const featuredImage: MediaItem | null = featuredUrl
+    ? {
+        type: "image",
+        url: featuredUrl,
+        alt: post.featuredImage?.node?.altText || post.title,
+      }
+    : null;
+
+  // Construct final array: [Videos..., FeaturedImage, OtherImages...]
+  const mediaItems: MediaItem[] = [
+    ...videos,
+    ...(featuredImage ? [featuredImage] : []),
+    ...images,
+  ];
 
   return {
     ...post,

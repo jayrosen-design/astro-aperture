@@ -12,14 +12,15 @@ interface LightboxProps {
   onNavigate: (post: ProcessedPost) => void;
 }
 
-function MediaRenderer({ item, isActive }: { item: MediaItem; isActive: boolean }) {
+function MediaRenderer({ item, isActive, shouldAutoplay }: { item: MediaItem; isActive: boolean; shouldAutoplay: boolean }) {
   if (item.type === "youtube") {
+    const autoplayParams = shouldAutoplay ? "autoplay=1&mute=1&controls=1&rel=0" : "autoplay=0&controls=1&rel=0";
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="w-full max-w-4xl aspect-video">
           {isActive ? (
             <iframe
-              src={`${item.url}?autoplay=0&rel=0`}
+              src={`${item.url}?${autoplayParams}`}
               className="w-full h-full rounded-lg"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -36,12 +37,13 @@ function MediaRenderer({ item, isActive }: { item: MediaItem; isActive: boolean 
   }
 
   if (item.type === "vimeo") {
+    const autoplayParams = shouldAutoplay ? "autoplay=1&muted=1" : "autoplay=0";
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="w-full max-w-4xl aspect-video">
           {isActive ? (
             <iframe
-              src={item.url}
+              src={`${item.url}?${autoplayParams}`}
               className="w-full h-full rounded-lg"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
@@ -63,6 +65,9 @@ function MediaRenderer({ item, isActive }: { item: MediaItem; isActive: boolean 
         <video
           src={item.url}
           controls
+          autoPlay={shouldAutoplay}
+          muted={shouldAutoplay}
+          playsInline
           className="max-w-full max-h-full rounded-lg"
           preload="metadata"
         />
@@ -277,7 +282,11 @@ export function Lightbox({ post, posts, onClose, onNavigate }: LightboxProps) {
         <div className="flex-1 flex flex-col items-center justify-center min-h-0 w-full lg:w-auto">
           <div className="flex items-center justify-center w-full">
             {currentMedia && (
-              <MediaRenderer item={currentMedia} isActive={true} />
+              <MediaRenderer 
+                item={currentMedia} 
+                isActive={true} 
+                shouldAutoplay={currentMediaIndex === 0 && (currentMedia.type === "video" || currentMedia.type === "youtube" || currentMedia.type === "vimeo")}
+              />
             )}
           </div>
           
