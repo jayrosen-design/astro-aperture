@@ -75,9 +75,19 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
+      
+      // Check if hovering over interactive elements
+      const target = e.target as HTMLElement;
+      const isOverInteractive = target.closest('button, a, [role="button"]');
+      setIsHovering(!isOverInteractive);
     };
 
-    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseEnter = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isOverInteractive = target.closest('button, a, [role="button"]');
+      setIsHovering(!isOverInteractive);
+    };
+    
     const handleMouseLeave = () => setIsHovering(false);
 
     containerRef.current.addEventListener('mousemove', handleMouseMove);
@@ -104,6 +114,11 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
         {`
           [data-hero-section]:hover {
             cursor: none;
+          }
+          [data-hero-section] button:hover,
+          [data-hero-section] a:hover,
+          [data-hero-section] [role="button"]:hover {
+            cursor: pointer;
           }
         `}
       </style>
