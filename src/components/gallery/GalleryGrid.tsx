@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Post } from "@/lib/graphql";
+import { processPostsMedia, ProcessedPost } from "@/lib/mediaParser";
 import { GalleryCard } from "./GalleryCard";
 import { Lightbox } from "./Lightbox";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,10 @@ export function GalleryGrid({
   onLoadMore, 
   isLoadingMore 
 }: GalleryGridProps) {
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [selectedPost, setSelectedPost] = useState<ProcessedPost | null>(null);
+
+  // Process posts to extract media items
+  const processedPosts = useMemo(() => processPostsMedia(posts), [posts]);
 
   if (isLoading) {
     return (
@@ -49,7 +53,7 @@ export function GalleryGrid({
   return (
     <>
       <div className="gallery-grid">
-        {posts.map((post, index) => (
+        {processedPosts.map((post, index) => (
           <GalleryCard
             key={post.id}
             post={post}
@@ -75,7 +79,7 @@ export function GalleryGrid({
 
       <Lightbox
         post={selectedPost}
-        posts={posts}
+        posts={processedPosts}
         onClose={() => setSelectedPost(null)}
         onNavigate={setSelectedPost}
       />

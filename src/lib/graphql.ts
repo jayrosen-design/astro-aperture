@@ -40,6 +40,7 @@ export const GET_ASTRO_POSTS = `
         title
         slug
         excerpt
+        content
         date
         featuredImage {
           node {
@@ -88,6 +89,7 @@ export const GET_POSTS_BY_TAG = `
         title
         slug
         excerpt
+        content
         date
         featuredImage {
           node {

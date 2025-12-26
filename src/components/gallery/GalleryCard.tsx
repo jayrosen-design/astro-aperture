@@ -1,8 +1,9 @@
-import { Post } from "@/lib/graphql";
+import { ProcessedPost, getMediaCounts } from "@/lib/mediaParser";
 import { cn } from "@/lib/utils";
+import { Images, Play } from "lucide-react";
 
 interface GalleryCardProps {
-  post: Post;
+  post: ProcessedPost;
   index: number;
   onClick: () => void;
 }
@@ -10,6 +11,7 @@ interface GalleryCardProps {
 export function GalleryCard({ post, index, onClick }: GalleryCardProps) {
   const imageUrl = post.featuredImage?.node?.sourceUrl;
   const altText = post.featuredImage?.node?.altText || post.title;
+  const mediaCounts = getMediaCounts(post);
 
   if (!imageUrl) return null;
 
@@ -32,6 +34,23 @@ export function GalleryCard({ post, index, onClick }: GalleryCardProps) {
           className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
+        
+        {/* Media indicators */}
+        <div className="absolute top-3 right-3 flex gap-2">
+          {mediaCounts.totalVideos > 0 && (
+            <div className="flex items-center gap-1 bg-background/80 backdrop-blur-sm text-foreground text-xs px-2 py-1 rounded-full">
+              <Play className="w-3 h-3" />
+              <span>{mediaCounts.totalVideos}</span>
+            </div>
+          )}
+          {mediaCounts.totalImages > 1 && (
+            <div className="flex items-center gap-1 bg-background/80 backdrop-blur-sm text-foreground text-xs px-2 py-1 rounded-full">
+              <Images className="w-3 h-3" />
+              <span>{mediaCounts.totalImages}</span>
+            </div>
+          )}
+        </div>
+
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
           <h3 className="font-display text-lg font-medium text-foreground line-clamp-2">
