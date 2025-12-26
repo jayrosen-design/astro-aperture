@@ -1,28 +1,9 @@
 import { Layout } from "@/components/layout/Layout";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Mail } from "lucide-react";
 
 const JAY_PORTRAIT = "https://jayrosen.design/wp-content/uploads/2022/10/milkyway-self-telescope.png";
 
 const About = () => {
-
-  const gear = [
-    {
-      category: "Telescopes",
-      items: ["Sky-Watcher Esprit 100ED", "Celestron EdgeHD 8\"", "Seestar S50"],
-    },
-    {
-      category: "Cameras",
-      items: ["ZWO ASI2600MC Pro", "Canon EOS Ra"],
-    },
-    {
-      category: "Mounts",
-      items: ["Sky-Watcher EQ6-R Pro", "iOptron CEM70"],
-    },
-    {
-      category: "Accessories",
-      items: ["ZWO EAF", "ASIAIR Pro", "Optolong L-Pro Filter"],
-    },
-  ];
 
   const faqs = [
     {
@@ -35,7 +16,7 @@ const About = () => {
     },
     {
       question: "Can I license images for commercial use?",
-      answer: "Absolutely. Please reach out via the contact page for licensing inquiries.",
+      answer: "Absolutely. Please reach out via email for licensing inquiries.",
     },
     {
       question: "How long does shipping take?",
@@ -193,33 +174,23 @@ const About = () => {
           </div>
         </section>
 
-        {/* Gear Section */}
+        {/* Contact Section */}
         <section className="py-20">
           <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="font-display text-3xl font-semibold text-center mb-12">
-              Equipment
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-              {gear.map((category) => (
-                <div
-                  key={category.category}
-                  className="p-6 rounded-xl bg-card border border-border/50"
-                >
-                  <h3 className="font-semibold mb-4 text-primary">
-                    {category.category}
-                  </h3>
-                  <ul className="space-y-2">
-                    {category.items.map((item) => (
-                      <li
-                        key={item}
-                        className="text-sm text-muted-foreground"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="font-display text-3xl font-semibold mb-6">
+                Get in Touch
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Have questions about prints, licensing, or collaborations? I'd love to hear from you.
+              </p>
+              <a
+                href="mailto:studio@jayrosen.design"
+                className="inline-flex items-center gap-2 text-lg text-primary hover:text-primary/80 transition-colors"
+              >
+                <Mail className="w-5 h-5" />
+                studio@jayrosen.design
+              </a>
             </div>
           </div>
         </section>

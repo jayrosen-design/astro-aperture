@@ -30,11 +30,9 @@ export function Navbar() {
   }, [location]);
 
   const navLinks = [
-    { label: "Space Apps", href: "/space-apps" },
-    { label: "Shop", href: "/shop" },
-    { label: "Gear", href: "/gear" },
     { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "Space Apps", href: "/space-apps" },
+    { label: "Gear", href: "/gear" },
   ];
 
   return (
@@ -110,6 +108,11 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Shop Button */}
+            <Button asChild size="sm">
+              <Link to="/shop">Shop</Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -157,6 +160,12 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                to="/shop"
+                className="mx-4 mt-2"
+              >
+                <Button className="w-full">Shop</Button>
+              </Link>
             </div>
           </div>
         )}
