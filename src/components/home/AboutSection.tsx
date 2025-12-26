@@ -7,7 +7,7 @@ export function AboutSection() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Photo */}
           <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/10">
+            <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/10">
               <img
                 src={JAY_PORTRAIT}
                 alt="Jay Rosen - Astrophotographer"
