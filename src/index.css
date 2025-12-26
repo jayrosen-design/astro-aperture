@@ -16,35 +16,35 @@
     --popover: 220 20% 6%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 220 70% 55%;
+    --primary: 0 75% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 280 60% 50%;
+    --secondary: 0 60% 45%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 0 10% 15%;
+    --muted-foreground: 0 10% 60%;
 
-    --accent: 200 80% 60%;
+    --accent: 0 85% 60%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 220 70% 55%;
+    --border: 0 10% 18%;
+    --input: 0 10% 18%;
+    --ring: 0 75% 55%;
 
     --radius: 0.75rem;
 
     /* Custom Cosmic Colors */
-    --nebula: 280 60% 50%;
-    --nebula-glow: 280 80% 70%;
+    --nebula: 0 60% 50%;
+    --nebula-glow: 0 80% 70%;
     --starlight: 45 100% 90%;
-    --cosmic-blue: 220 70% 55%;
-    --cosmic-blue-glow: 220 90% 70%;
-    --deep-space: 220 20% 4%;
-    --galaxy-purple: 270 50% 40%;
+    --cosmic-blue: 0 75% 55%;
+    --cosmic-blue-glow: 0 90% 70%;
+    --deep-space: 0 10% 4%;
+    --galaxy-purple: 0 50% 40%;
 
     /* Gradients */
     --gradient-cosmic: linear-gradient(135deg, hsl(var(--cosmic-blue)) 0%, hsl(var(--nebula)) 100%);
@@ -60,14 +60,14 @@
     --font-sans: 'Inter', system-ui, sans-serif;
     --font-display: 'Playfair Display', Georgia, serif;
 
-    --sidebar-background: 220 20% 6%;
+    --sidebar-background: 0 10% 6%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 220 70% 55%;
+    --sidebar-primary: 0 75% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 15% 15%;
+    --sidebar-accent: 0 10% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 220 15% 18%;
-    --sidebar-ring: 220 70% 55%;
+    --sidebar-border: 0 10% 18%;
+    --sidebar-ring: 0 75% 55%;
   }
 
   .dark {

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { GALLERY_CATEGORIES } from "@/lib/graphql";
-import { ArrowRight } from "lucide-react";
 
 export function CategoryShowcase() {
   return (
@@ -40,14 +39,10 @@ export function CategoryShowcase() {
               
               {/* Content */}
               <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {category.name}
-                  </h3>
-                  <ArrowRight className="w-6 h-6 text-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                </div>
+                <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                  {category.name}
+                </h3>
               </div>
-                  <ArrowRight className="w-6 h-6 text-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
             </Link>
           ))}
         </div>
