@@ -49,11 +49,12 @@ export function Hero({ featuredPost }: HeroProps) {
           </h1>
 
           <p 
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-up opacity-0"
+            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 animate-fade-up opacity-0"
             style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
           >
-            Capturing the infinite beauty of the night sky. From distant galaxies 
-            to dancing nebulae, witness the universe through a dedicated lens.
+            Bridging the gap between fine art and scientific observation to reveal the hidden 
+            wonders of our universe. Capturing distant galaxies, nebulae, and the planets of 
+            our solar system while advocating for the preservation of natural dark skies.
           </p>
 
           <div 
