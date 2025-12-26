@@ -1,5 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
-import { Camera, Telescope, Star, Award, Moon, Sparkles, Globe, BookOpen } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 const JAY_PORTRAIT = "https://jayrosen.design/wp-content/uploads/2022/10/milkyway-self-telescope.png";
 
@@ -81,38 +81,14 @@ const About = () => {
             <div className="space-y-6">
               <h2 className="font-display text-3xl font-semibold">The Intersection of Art and Science</h2>
               <p className="text-muted-foreground leading-relaxed">
-                With a Bachelor of Fine Arts from the University of Florida, Jay's creative 
-                roots began in mixed media and light installation art. His early works, such 
-                as the book <em>Great Barrier Reef</em> and the <em>Mirror Visionwear</em> series, 
-                explored themes of astronauts, exploration, and optical perception.
+                Astro Aperture is the creative astrophotography portfolio of Jay Rosen, bridging the gap between fine art and scientific observation to reveal the hidden wonders of our universe.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                However, the global lockdown of 2020 shifted his focus from the studio to the 
-                stars, transforming a curiosity about the night sky into a dedicated pursuit 
-                of capturing the invisible.
+                What began as a personal exploration of the night sky has evolved into a dedicated collection of deep-sky astrophotography, capturing everything from the planets of our solar system, distant galaxies, and nebulae.
               </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <Camera className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">BFA</h3>
-                  <p className="text-sm text-muted-foreground">University of Florida</p>
-                </div>
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <Telescope className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">Since 2020</h3>
-                  <p className="text-sm text-muted-foreground">Astrophotography</p>
-                </div>
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <Star className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">Dark Skies</h3>
-                  <p className="text-sm text-muted-foreground">Conservation</p>
-                </div>
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <Moon className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">Griffin-1</h3>
-                  <p className="text-sm text-muted-foreground">Lunar Lander 2025</p>
-                </div>
-              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Jay Rosen aims to not only document the sublime beauty of the cosmos but also advocate for environmental conservation, using the power of photography to demonstrate the vital importance of preserving natural dark skies for future generations.
+              </p>
             </div>
           </div>
         </section>
@@ -172,43 +148,23 @@ const About = () => {
         {/* Advocacy Section */}
         <section className="py-20">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-              <div className="space-y-6">
-                <h2 className="font-display text-3xl font-semibold">Advocacy and Education</h2>
-                <p className="text-muted-foreground leading-relaxed">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="font-display text-3xl font-semibold text-center mb-8">
+                Advocacy and Education
+              </h2>
+              <div className="space-y-6 text-muted-foreground leading-relaxed">
+                <p>
                   Astro Aperture is more than a photography portfolio; it is a platform for 
                   education and conservation. As a member of the Alachua Astronomy Club, Jay 
                   regularly hosts public stargazing events and teaches others how to capture 
                   the night sky.
                 </p>
-                <p className="text-muted-foreground leading-relaxed">
+                <p>
                   His commitment to preserving our view of the cosmos led to his involvement 
                   with the Alachua County Environmental Protection Advisory Committee (EPAC), 
                   where his research and photography are used to advocate for Dark Sky regulations 
                   and mitigate light pollution.
                 </p>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <Globe className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">EPAC</h3>
-                  <p className="text-sm text-muted-foreground">Committee Member</p>
-                </div>
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <BookOpen className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">Public Events</h3>
-                  <p className="text-sm text-muted-foreground">Stargazing Host</p>
-                </div>
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <Award className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">NASA</h3>
-                  <p className="text-sm text-muted-foreground">Space Apps Winner</p>
-                </div>
-                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                  <Star className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                  <h3 className="font-semibold mb-1">Messier</h3>
-                  <p className="text-sm text-muted-foreground">Catalog in Progress</p>
-                </div>
               </div>
             </div>
           </div>
