@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Stars, Instagram, Mail } from "lucide-react";
+import { Stars, Instagram, Mail, Facebook, Linkedin } from "lucide-react";
 import { GALLERY_CATEGORIES } from "@/lib/graphql";
 
 export function Footer() {
@@ -82,12 +82,28 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Connect</h4>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/astro.aperture"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
               >
                 <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.facebook.com/astro.aperture"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/astro-aperture/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href="mailto:contact@astroaperture.com"

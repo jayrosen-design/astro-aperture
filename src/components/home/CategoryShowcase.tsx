@@ -3,11 +3,8 @@ import { GALLERY_CATEGORIES } from "@/lib/graphql";
 import { ArrowRight } from "lucide-react";
 
 export function CategoryShowcase() {
-  // Featured categories to display on homepage
-  const featuredCategories = GALLERY_CATEGORIES.slice(0, 6);
-
   return (
-    <section className="py-20 lg:py-32 bg-card/30">
+    <section className="py-20 lg:py-32">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -19,27 +16,42 @@ export function CategoryShowcase() {
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {featuredCategories.map((category, index) => (
+        {/* Categories Grid - 2 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {GALLERY_CATEGORIES.map((category, index) => (
             <Link
               key={category.slug}
               to={`/gallery/${category.slug}`}
-              className="group relative p-6 rounded-xl bg-muted/50 border border-border/50 hover:border-primary/50 hover:bg-muted transition-all duration-300 animate-fade-up opacity-0"
+              className="group relative overflow-hidden rounded-2xl aspect-[16/9] animate-fade-up opacity-0"
               style={{
                 animationDelay: `${index * 100}ms`,
                 animationFillMode: "forwards",
               }}
             >
-              <div className="text-center">
-                <span className="text-4xl block mb-3 group-hover:scale-110 transition-transform">
-                  {category.icon}
-                </span>
-                <h3 className="font-medium text-sm group-hover:text-primary transition-colors">
-                  {category.name}
-                </h3>
+              {/* Background Image */}
+              <img
+                src={category.image}
+                alt={category.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80 group-hover:opacity-70 transition-opacity" />
+              
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-3xl lg:text-4xl block mb-2">
+                      {category.icon}
+                    </span>
+                    <h3 className="font-display text-2xl lg:text-3xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {category.name}
+                    </h3>
+                  </div>
+                  <ArrowRight className="w-6 h-6 text-foreground opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                </div>
               </div>
-              <ArrowRight className="absolute bottom-3 right-3 w-4 h-4 opacity-0 group-hover:opacity-100 text-primary transition-opacity" />
             </Link>
           ))}
         </div>

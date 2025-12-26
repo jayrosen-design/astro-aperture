@@ -1,6 +1,8 @@
 import { Layout } from "@/components/layout/Layout";
 import { Camera, Telescope, Star, Award, Moon, Sparkles, Globe, BookOpen } from "lucide-react";
 
+const JAY_PORTRAIT = "https://jayrosen.design/wp-content/uploads/2022/10/milkyway-self-telescope.png";
+
 const About = () => {
   const milestones = [
     {
@@ -86,6 +88,18 @@ const About = () => {
         {/* The Intersection Section */}
         <section className="container mx-auto px-4 lg:px-8 mb-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            {/* Jay's Portrait */}
+            <div className="relative">
+              <div className="aspect-square rounded-2xl overflow-hidden">
+                <img
+                  src={JAY_PORTRAIT}
+                  alt="Jay Rosen with telescope under the Milky Way"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-cosmic rounded-full blur-3xl opacity-30" />
+            </div>
+
             <div className="space-y-6">
               <h2 className="font-display text-3xl font-semibold">The Intersection of Art and Science</h2>
               <p className="text-muted-foreground leading-relaxed">
@@ -99,28 +113,27 @@ const About = () => {
                 stars, transforming a curiosity about the night sky into a dedicated pursuit 
                 of capturing the invisible.
               </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                <Camera className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                <h3 className="font-semibold mb-1">BFA</h3>
-                <p className="text-sm text-muted-foreground">University of Florida</p>
-              </div>
-              <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                <Telescope className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                <h3 className="font-semibold mb-1">Since 2020</h3>
-                <p className="text-sm text-muted-foreground">Astrophotography</p>
-              </div>
-              <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                <Star className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                <h3 className="font-semibold mb-1">Dark Skies</h3>
-                <p className="text-sm text-muted-foreground">Conservation</p>
-              </div>
-              <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
-                <Moon className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
-                <h3 className="font-semibold mb-1">Griffin-1</h3>
-                <p className="text-sm text-muted-foreground">Lunar Lander 2025</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
+                  <Camera className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
+                  <h3 className="font-semibold mb-1">BFA</h3>
+                  <p className="text-sm text-muted-foreground">University of Florida</p>
+                </div>
+                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
+                  <Telescope className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
+                  <h3 className="font-semibold mb-1">Since 2020</h3>
+                  <p className="text-sm text-muted-foreground">Astrophotography</p>
+                </div>
+                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
+                  <Star className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
+                  <h3 className="font-semibold mb-1">Dark Skies</h3>
+                  <p className="text-sm text-muted-foreground">Conservation</p>
+                </div>
+                <div className="p-6 rounded-xl bg-card border border-border/50 text-center">
+                  <Moon className="w-8 h-8 mx-auto mb-3 text-cosmic-blue" />
+                  <h3 className="font-semibold mb-1">Griffin-1</h3>
+                  <p className="text-sm text-muted-foreground">Lunar Lander 2025</p>
+                </div>
               </div>
             </div>
           </div>
