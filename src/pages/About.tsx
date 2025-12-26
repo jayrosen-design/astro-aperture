@@ -4,28 +4,6 @@ import { Camera, Telescope, Star, Award, Moon, Sparkles, Globe, BookOpen } from 
 const JAY_PORTRAIT = "https://jayrosen.design/wp-content/uploads/2022/10/milkyway-self-telescope.png";
 
 const About = () => {
-  const milestones = [
-    {
-      year: "2020",
-      title: "The Spark",
-      description: "While photographing a Super Moon on March 9, Jay inadvertently captured Jupiter and its moons, igniting an obsession with astrophotography.",
-    },
-    {
-      year: "2020-Present",
-      title: "Andromeda Tradition",
-      description: "Every August and September, Jay photographs the Andromeda Galaxy—a tradition marking technical growth and celestial beauty.",
-    },
-    {
-      year: "2023",
-      title: "Dark Sky Advocacy",
-      description: "Joined the Alachua County Environmental Protection Advisory Committee to advocate for Dark Sky regulations.",
-    },
-    {
-      year: "2025",
-      title: "To the Moon",
-      description: "Concept art for New Worlds Reading AR Expeditions selected to be laser-etched onto a nano disc aboard the Griffin-1 lunar lander.",
-    },
-  ];
 
   const gear = [
     {
@@ -90,11 +68,11 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             {/* Jay's Portrait */}
             <div className="relative">
-              <div className="aspect-square rounded-2xl overflow-hidden">
+              <div className="rounded-2xl overflow-hidden">
                 <img
                   src={JAY_PORTRAIT}
                   alt="Jay Rosen with telescope under the Milky Way"
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto"
                 />
               </div>
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-cosmic rounded-full blur-3xl opacity-30" />
@@ -190,35 +168,6 @@ const About = () => {
           </div>
         </section>
 
-        {/* Timeline */}
-        <section className="py-20 bg-card/30">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h2 className="font-display text-3xl font-semibold text-center mb-12">
-              Journey Milestones
-            </h2>
-            <div className="max-w-3xl mx-auto">
-              <div className="relative">
-                <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border" />
-                {milestones.map((milestone, index) => (
-                  <div
-                    key={milestone.year}
-                    className={`relative flex items-start gap-6 mb-8 ${
-                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                    }`}
-                  >
-                    <div className="hidden md:block flex-1" />
-                    <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary -translate-x-1/2 mt-2" />
-                    <div className="flex-1 ml-10 md:ml-0 p-6 rounded-xl bg-background border border-border/50">
-                      <span className="text-sm text-primary font-medium">{milestone.year}</span>
-                      <h3 className="font-semibold mt-1 mb-2">{milestone.title}</h3>
-                      <p className="text-sm text-muted-foreground">{milestone.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Advocacy Section */}
         <section className="py-20">
