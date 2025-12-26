@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { useSpaceApps } from "@/hooks/useSpaceApps";
 import { AppCard } from "@/components/space-apps/AppCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { FlashlightCursor } from "@/components/home/FlashlightCursor";
 
 export default function SpaceApps() {
   const { data, isLoading, error } = useSpaceApps();
@@ -9,7 +10,8 @@ export default function SpaceApps() {
 
   return (
     <Layout>
-      <div className="pt-24 lg:pt-32 pb-16 lg:pb-24">
+      <div data-flashlight-section className="relative pt-24 lg:pt-32 pb-16 lg:pb-24 overflow-hidden">
+        <FlashlightCursor color="rgba(239, 68, 68, 0.12)" size={350} />
         <div className="container mx-auto px-4 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12 lg:mb-16">

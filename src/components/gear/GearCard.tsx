@@ -15,7 +15,7 @@ export function GearCard({ product }: GearCardProps) {
 
   return (
     <div
-      className="group bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer"
+      className="group relative z-20 bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-300 cursor-pointer"
       onClick={handleClick}
     >
       {/* Image */}

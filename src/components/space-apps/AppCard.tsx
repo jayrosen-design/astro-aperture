@@ -16,7 +16,7 @@ export function AppCard({ app }: AppCardProps) {
       href={postUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block bg-card border border-border rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
+      className="group block relative z-20 bg-card border border-border rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
     >
       {/* Featured Image - Fixed aspect ratio ~642:355 (roughly 16:9) */}
       {imageUrl && (
