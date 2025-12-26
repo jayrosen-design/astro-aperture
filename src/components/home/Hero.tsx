@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Post } from "@/lib/graphql";
 import { HeroCursor } from "./HeroCursor";
+import heroPanorama from "@/assets/hero-panorama.jpg";
 
 interface HeroProps {
   featuredPost?: Post;
 }
 
-const HERO_BACKGROUND = "https://jayrosen.design/wp-content/uploads/2025/05/Panorama-3am-stacked-copy-edit-copy-72-scaled.jpg";
+const HERO_BACKGROUND = heroPanorama;
 
 export function Hero({ featuredPost }: HeroProps) {
   return (
