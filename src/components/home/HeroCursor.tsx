@@ -20,20 +20,29 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
       cursorRef.current.style.left = `${mousePos.current.x}px`;
       cursorRef.current.style.top = `${mousePos.current.y}px`;
       
-      // Calculate the background position to show zoomed area under cursor
       const rect = containerRef.current.getBoundingClientRect();
       
-      // Mouse position relative to hero section
-      const relX = mousePos.current.x - rect.left;
-      const relY = mousePos.current.y - rect.top;
+      // Get the background image element to match its actual rendering
+      const bgImg = containerRef.current.querySelector('img');
+      if (!bgImg) return;
       
-      // Background size is zoomLevel times the container size
-      const bgWidth = rect.width * zoomLevel;
-      const bgHeight = rect.height * zoomLevel;
+      const imgRect = bgImg.getBoundingClientRect();
+      
+      // Mouse position relative to the image
+      const relX = mousePos.current.x - imgRect.left;
+      const relY = mousePos.current.y - imgRect.top;
+      
+      // Calculate percentage position within the image
+      const percentX = relX / imgRect.width;
+      const percentY = relY / imgRect.height;
+      
+      // Background size is zoomLevel times the image size
+      const bgWidth = imgRect.width * zoomLevel;
+      const bgHeight = imgRect.height * zoomLevel;
       
       // Calculate offset to center the zoomed area in the cursor
-      const offsetX = (relX * zoomLevel) - (cursorWidth / 2);
-      const offsetY = (relY * zoomLevel) - (cursorHeight / 2);
+      const offsetX = (percentX * bgWidth) - (cursorWidth / 2);
+      const offsetY = (percentY * bgHeight) - (cursorHeight / 2);
       
       cursorRef.current.style.backgroundSize = `${bgWidth}px ${bgHeight}px`;
       cursorRef.current.style.backgroundPosition = `-${offsetX}px -${offsetY}px`;
