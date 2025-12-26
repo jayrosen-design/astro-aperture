@@ -25,7 +25,7 @@ export function AboutSection() {
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p>
-                Astro Aperture is the creative astrophotography portfolio of Jay Rosen, bridging the gap between fine art and scientific observation to reveal the hidden wonders of our universe.
+                Astro Aperture is the astrophotography portfolio of Jay Rosen, bridging the gap between fine art and scientific observation to reveal the hidden wonders of our universe.
               </p>
               <p>
                 What began as a personal exploration of the night sky has evolved into a dedicated collection of deep-sky astrophotography, capturing everything from the planets of our solar system, distant galaxies, and nebulae.
