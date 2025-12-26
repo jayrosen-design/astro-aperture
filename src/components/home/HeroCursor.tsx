@@ -13,8 +13,8 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
   const rafId = useRef<number>();
   const [isHovering, setIsHovering] = useState(false);
 
-  const cursorWidth = 240;
-  const cursorHeight = 120;
+  const cursorWidth = 246;
+  const cursorHeight = 153;
 
   const updateCursorPosition = useCallback(() => {
     if (cursorRef.current && containerRef.current) {
