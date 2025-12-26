@@ -26,7 +26,7 @@ export function Hero({ featuredPost }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-8 animate-fade-up opacity-0" style={{ animationDelay: "100ms", animationFillMode: "forwards" }}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground/20 border border-foreground/30 text-foreground text-sm mb-8 animate-fade-up opacity-0" style={{ animationDelay: "100ms", animationFillMode: "forwards" }}>
             <Sparkles className="w-4 h-4" />
             <span>Fine Art Astrophotography</span>
           </div>
@@ -36,7 +36,7 @@ export function Hero({ featuredPost }: HeroProps) {
             style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
           >
             Explore the{" "}
-            <span className="text-gradient-cosmic">Cosmos</span>
+            <span className="text-foreground">Cosmos</span>
           </h1>
 
           <p 

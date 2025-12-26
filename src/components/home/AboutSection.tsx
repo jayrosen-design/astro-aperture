@@ -21,7 +21,7 @@ export function AboutSection() {
           {/* Text Content */}
           <div className="space-y-6">
             <h2 className="font-display text-3xl lg:text-4xl font-semibold text-foreground">
-              About <span className="text-gradient-cosmic">Astro Aperture</span>
+              About Astro Aperture
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
               <p>
