@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from "react";
+import viewfinderOverlay from "@/assets/viewfinder-white.png";
 
 interface HeroCursorProps {
   backgroundImage: string;
@@ -116,13 +117,17 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
           transform: 'translate(-50%, -50%)',
           width: `${cursorWidth}px`,
           height: `${cursorHeight}px`,
-          borderRadius: '12px',
-          border: '2px solid hsl(var(--primary))',
-          boxShadow: '0 0 20px hsl(var(--primary) / 0.4)',
           backgroundImage: `url(${backgroundImage})`,
           backgroundRepeat: 'no-repeat',
         }}
-      />
+      >
+        {/* Viewfinder overlay */}
+        <img 
+          src={viewfinderOverlay} 
+          alt="" 
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+        />
+      </div>
     </>
   );
 }
