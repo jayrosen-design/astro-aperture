@@ -75,7 +75,7 @@ export function Hero({ featuredPost }: HeroProps) {
       </div>
 
       {/* Custom magnifying cursor */}
-      <HeroCursor backgroundImage={HERO_BACKGROUND} zoomLevel={3} />
+      <HeroCursor backgroundImage={HERO_BACKGROUND} zoomLevel={1} />
     </section>
   );
 }
