@@ -31,7 +31,7 @@ export function GalleryGrid({
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
-            className="gallery-item animate-pulse aspect-[4/3]"
+            className="gallery-item animate-pulse aspect-square"
           >
             <div className="w-full h-full bg-muted rounded-lg" />
           </div>
