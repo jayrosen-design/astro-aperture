@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
@@ -5,19 +6,33 @@ import { CategoryPills } from "@/components/gallery/CategoryPills";
 import { useAstroPosts, usePostsByTag } from "@/hooks/useAstroPosts";
 import { GALLERY_CATEGORIES } from "@/lib/graphql";
 
+const POSTS_PER_PAGE = 12;
+
 const Gallery = () => {
   const { slug } = useParams<{ slug?: string }>();
+  const [displayCount, setDisplayCount] = useState(POSTS_PER_PAGE);
+  
+  // Reset display count when category changes
+  useEffect(() => {
+    setDisplayCount(POSTS_PER_PAGE);
+  }, [slug]);
   
   // Find category info for the slug
   const categoryInfo = GALLERY_CATEGORIES.find((cat) => cat.slug === slug);
   
   // Fetch all posts or filtered posts based on slug
-  const allPostsQuery = useAstroPosts(50);
-  const filteredPostsQuery = usePostsByTag(slug || "", 50);
+  const allPostsQuery = useAstroPosts(100);
+  const filteredPostsQuery = usePostsByTag(slug || "", 100);
   
   // Use filtered query only when slug is provided
   const { data, isLoading, error } = slug ? filteredPostsQuery : allPostsQuery;
-  const posts = data?.posts?.nodes || [];
+  const allPosts = data?.posts?.nodes || [];
+  const visiblePosts = allPosts.slice(0, displayCount);
+  const hasMore = displayCount < allPosts.length;
+
+  const handleLoadMore = () => {
+    setDisplayCount((prev) => prev + POSTS_PER_PAGE);
+  };
 
   const pageTitle = categoryInfo ? categoryInfo.name : "Gallery";
   const pageDescription = categoryInfo
@@ -57,7 +72,14 @@ const Gallery = () => {
           )}
 
           {/* Gallery Grid */}
-          {!error && <GalleryGrid posts={posts} isLoading={isLoading} />}
+          {!error && (
+            <GalleryGrid 
+              posts={visiblePosts} 
+              isLoading={isLoading}
+              hasMore={hasMore}
+              onLoadMore={handleLoadMore}
+            />
+          )}
         </div>
       </div>
     </Layout>
