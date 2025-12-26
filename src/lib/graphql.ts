@@ -165,6 +165,31 @@ export const GET_ASTRO_PRODUCTS = `
   }
 `;
 
+export const GET_SPACE_APPS = `
+  query GetSpaceApps {
+    posts(where: { tag: "space-apps", orderby: { field: DATE, order: DESC } }) {
+      nodes {
+        id
+        databaseId
+        title
+        slug
+        excerpt
+        content
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_SINGLE_POST = `
   query GetSinglePost($slug: ID!) {
     post(id: $slug, idType: SLUG) {
