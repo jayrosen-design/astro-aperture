@@ -19,12 +19,19 @@ export default function Gear() {
       <div className="min-h-screen pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h1 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Photography Gear
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               The equipment I use to capture the cosmos
+            </p>
+          </div>
+
+          {/* Affiliate Disclaimer */}
+          <div className="mb-12 p-4 rounded-lg bg-muted/50 border border-border text-center">
+            <p className="text-sm text-muted-foreground">
+              Some links on this page are affiliate links to Amazon and eBay. I may receive a commission if you purchase through these links, at no additional cost to you.
             </p>
           </div>
 
