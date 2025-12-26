@@ -9,7 +9,6 @@ import SpaceApps from "./pages/SpaceApps";
 import Shop from "./pages/Shop";
 import Gear from "./pages/Gear";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -35,7 +34,6 @@ const App = () => (
           <Route path="/shop" element={<Shop />} />
           <Route path="/gear" element={<Gear />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
