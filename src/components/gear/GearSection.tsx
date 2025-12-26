@@ -7,9 +7,7 @@ interface GearSectionProps {
 }
 
 export function GearSection({ title, products }: GearSectionProps) {
-  if (products.length === 0) {
-    return null;
-  }
+  const isEmpty = products.length === 0;
 
   return (
     <section className="space-y-6">
@@ -20,11 +18,19 @@ export function GearSection({ title, products }: GearSectionProps) {
         <div className="flex-1 h-px bg-border" />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
-        {products.map((product) => (
-          <GearCard key={product.id} product={product} />
-        ))}
-      </div>
+      {isEmpty ? (
+        <div className="rounded-lg border border-border bg-card/50 p-6">
+          <p className="text-sm text-muted-foreground">
+            No items found in this category yet.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+          {products.map((product) => (
+            <GearCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
