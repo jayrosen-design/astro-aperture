@@ -16,11 +16,11 @@ export function GalleryCard({ post, index, onClick }: GalleryCardProps) {
   return (
     <div
       className={cn(
-        "masonry-item group cursor-pointer overflow-hidden rounded-lg",
+        "gallery-item group cursor-pointer",
         "animate-fade-up opacity-0"
       )}
       style={{
-        animationDelay: `${index * 50}ms`,
+        animationDelay: `${Math.min(index, 12) * 50}ms`,
         animationFillMode: "forwards",
       }}
       onClick={onClick}
