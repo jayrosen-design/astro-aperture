@@ -20,32 +20,49 @@ export function HeroCursor({ backgroundImage, zoomLevel = 2.5 }: HeroCursorProps
       cursorRef.current.style.left = `${mousePos.current.x}px`;
       cursorRef.current.style.top = `${mousePos.current.y}px`;
       
-      const rect = containerRef.current.getBoundingClientRect();
-      
-      // Get the background image element to match its actual rendering
-      const bgImg = containerRef.current.querySelector('img');
+      const bgImg = containerRef.current.querySelector('img') as HTMLImageElement;
       if (!bgImg) return;
       
       const imgRect = bgImg.getBoundingClientRect();
+      const naturalWidth = bgImg.naturalWidth;
+      const naturalHeight = bgImg.naturalHeight;
       
-      // Mouse position relative to the image
+      // Calculate how object-cover scales and positions the image
+      const containerAspect = imgRect.width / imgRect.height;
+      const imageAspect = naturalWidth / naturalHeight;
+      
+      let scale: number;
+      let offsetX = 0;
+      let offsetY = 0;
+      
+      if (containerAspect > imageAspect) {
+        // Container is wider - image is scaled by width, cropped vertically
+        scale = imgRect.width / naturalWidth;
+        offsetY = (imgRect.height - naturalHeight * scale) / 2;
+      } else {
+        // Container is taller - image is scaled by height, cropped horizontally
+        scale = imgRect.height / naturalHeight;
+        offsetX = (imgRect.width - naturalWidth * scale) / 2;
+      }
+      
+      // Mouse position relative to the container
       const relX = mousePos.current.x - imgRect.left;
       const relY = mousePos.current.y - imgRect.top;
       
-      // Calculate percentage position within the image
-      const percentX = relX / imgRect.width;
-      const percentY = relY / imgRect.height;
+      // Convert to position in the original image coordinates
+      const imgX = (relX - offsetX) / scale;
+      const imgY = (relY - offsetY) / scale;
       
-      // Background size is zoomLevel times the image size
-      const bgWidth = imgRect.width * zoomLevel;
-      const bgHeight = imgRect.height * zoomLevel;
+      // For the cursor background, we show the image at zoomLevel scale
+      const bgWidth = naturalWidth * zoomLevel;
+      const bgHeight = naturalHeight * zoomLevel;
       
-      // Calculate offset to center the zoomed area in the cursor
-      const offsetX = (percentX * bgWidth) - (cursorWidth / 2);
-      const offsetY = (percentY * bgHeight) - (cursorHeight / 2);
+      // Position the background so the correct spot is centered in the cursor
+      const bgPosX = (imgX * zoomLevel) - (cursorWidth / 2);
+      const bgPosY = (imgY * zoomLevel) - (cursorHeight / 2);
       
       cursorRef.current.style.backgroundSize = `${bgWidth}px ${bgHeight}px`;
-      cursorRef.current.style.backgroundPosition = `-${offsetX}px -${offsetY}px`;
+      cursorRef.current.style.backgroundPosition = `-${bgPosX}px -${bgPosY}px`;
     }
     rafId.current = requestAnimationFrame(updateCursorPosition);
   }, [zoomLevel]);
