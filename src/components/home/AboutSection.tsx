@@ -1,8 +1,11 @@
+import { FlashlightCursor } from "./FlashlightCursor";
+
 const JAY_PORTRAIT = "https://jayrosen.design/wp-content/uploads/2024/06/selfie-milkyway-web.png";
 
 export function AboutSection() {
   return (
-    <section className="py-20 lg:py-32 bg-background">
+    <section data-flashlight-section className="relative py-20 lg:py-32 bg-background overflow-hidden">
+      <FlashlightCursor color="rgba(239, 68, 68, 0.12)" size={350} />
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Photo */}
