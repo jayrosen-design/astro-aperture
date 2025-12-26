@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { Sparkles, Mail } from "lucide-react";
+import { FlashlightCursor } from "@/components/home/FlashlightCursor";
 
 const JAY_PORTRAIT = "https://jayrosen.design/wp-content/uploads/2022/10/milkyway-self-telescope.png";
 
@@ -26,7 +27,8 @@ const About = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-24 lg:pt-32">
+      <div data-flashlight-section className="relative min-h-screen pt-24 lg:pt-32 overflow-hidden">
+        <FlashlightCursor color="rgba(239, 68, 68, 0.12)" size={350} />
         {/* Hero Section */}
         <section className="container mx-auto px-4 lg:px-8 mb-20">
           <div className="max-w-4xl mx-auto text-center">
