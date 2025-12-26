@@ -30,11 +30,11 @@ function CategoryCard({ category, index }: { category: typeof GALLERY_CATEGORIES
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80 group-hover:opacity-70 transition-opacity" />
       
       {/* Viewfinder Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
         <img
           src={isClicking ? viewfinderRed : viewfinderWhite}
           alt=""
-          className="w-24 h-24 lg:w-32 lg:h-32 object-contain drop-shadow-lg"
+          className="w-full h-full object-cover"
         />
       </div>
       
