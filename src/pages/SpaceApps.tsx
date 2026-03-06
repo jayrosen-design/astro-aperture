@@ -1,4 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
+import planetariumPreview from "@/assets/planetarium-preview.png";
 import { useSpaceApps } from "@/hooks/useSpaceApps";
 import { AppCard } from "@/components/space-apps/AppCard";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -62,8 +63,8 @@ export default function SpaceApps() {
                 rel="noopener noreferrer"
                 className="group block relative z-20 bg-card border border-border rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
               >
-                <div className="w-full aspect-[642/355] overflow-hidden bg-gradient-to-br from-cosmic-blue/20 via-background to-primary/10 flex items-center justify-center">
-                  <span className="text-6xl">🌌</span>
+                <div className="w-full aspect-[642/355] overflow-hidden">
+                  <img src={planetariumPreview} alt="Planetarium" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
                 </div>
                 <div className="p-6 lg:p-8">
                   <h2 className="font-display text-xl lg:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
