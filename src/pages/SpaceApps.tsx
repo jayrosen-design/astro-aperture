@@ -55,6 +55,23 @@ export default function SpaceApps() {
 
           {!isLoading && !error && apps.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+              {/* Planetarium Card */}
+              <a
+                href="https://planetarium-player.lovable.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block relative z-20 bg-card border border-border rounded-2xl overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5"
+              >
+                <div className="w-full aspect-[642/355] overflow-hidden bg-gradient-to-br from-cosmic-blue/20 via-background to-primary/10 flex items-center justify-center">
+                  <span className="text-6xl">🌌</span>
+                </div>
+                <div className="p-6 lg:p-8">
+                  <h2 className="font-display text-xl lg:text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+                    Planetarium
+                  </h2>
+                </div>
+              </a>
+
               {apps.map((app) => (
                 <AppCard key={app.id} app={app} />
               ))}
