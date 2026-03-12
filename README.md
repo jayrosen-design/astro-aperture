@@ -6,6 +6,24 @@ A professional astrophotography portfolio website showcasing cosmic imagery capt
 
 Astro Aperture is a modern React application featuring a curated gallery of deep-sky astrophotography, from nebulae and galaxies to planetary imaging. The site connects to a WordPress GraphQL API to fetch photography content dynamically.
 
+## Screenshots
+
+| Homepage | About |
+|:--------:|:-----:|
+| ![Homepage](public/screenshots/homepage.png) | ![About](public/screenshots/about.png) |
+
+| Gallery | Lightbox |
+|:-------:|:--------:|
+| ![Gallery](public/screenshots/gallery.png) | ![Lightbox](public/screenshots/lightbox.png) |
+
+| Categories | Shop |
+|:----------:|:----:|
+| ![Categories](public/screenshots/categories.png) | ![Shop](public/screenshots/shop.png) |
+
+| Gear | Space Apps |
+|:----:|:----------:|
+| ![Gear](public/screenshots/gear.png) | ![Space Apps](public/screenshots/space-apps.png) |
+
 ## Key Features
 
 - **Dynamic Gallery**: Browse astrophotography organized by categories (Milky Way, Nebulae, Galaxies, Clusters, Planets, Moon, Sun, and more)
