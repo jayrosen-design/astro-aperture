@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1123400492.svg)](https://doi.org/10.5281/zenodo.18985615)
+
 # Astro Aperture
 
 A professional astrophotography portfolio website showcasing cosmic imagery captured by Jay Rosen.
