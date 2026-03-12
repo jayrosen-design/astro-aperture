@@ -2,8 +2,6 @@
 
 A professional astrophotography portfolio website showcasing cosmic imagery captured by Jay Rosen.
 
-![Astro Aperture](https://astroaperture.lovable.app/og-image.png)
-
 ## About the Project
 
 Astro Aperture is a modern React application featuring a curated gallery of deep-sky astrophotography, from nebulae and galaxies to planetary imaging. The site connects to a WordPress GraphQL API to fetch photography content dynamically.
