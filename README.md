@@ -1,73 +1,126 @@
-# Welcome to your Lovable project
+# Astro Aperture
 
-## Project info
+A professional astrophotography portfolio website showcasing cosmic imagery captured by Jay Rosen.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![Astro Aperture](https://astroaperture.lovable.app/og-image.png)
 
-## How can I edit this code?
+## About the Project
 
-There are several ways of editing your application.
+Astro Aperture is a modern React application featuring a curated gallery of deep-sky astrophotography, from nebulae and galaxies to planetary imaging. The site connects to a WordPress GraphQL API to fetch photography content dynamically.
 
-**Use Lovable**
+## Key Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **Dynamic Gallery**: Browse astrophotography organized by categories (Milky Way, Nebulae, Galaxies, Clusters, Planets, Moon, Sun, and more)
+- **Lightbox Viewing**: Full-screen image viewing with metadata
+- **WordPress Integration**: Content fetched from jayrosen.design GraphQL API
+- **Responsive Design**: Optimized for all devices using Tailwind CSS
+- **Print Shop**: Browse and purchase astrophotography prints
+- **Space Apps**: Explore interactive space exploration tools
+- **Gear Showcase**: Photography equipment and telescope setups
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech Stack
 
-**Use your preferred IDE**
+- **Framework**: React 18 + Vite
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Data Fetching**: TanStack Query (React Query)
+- **Routing**: React Router
+- **Icons**: Lucide React
+- **CMS**: WordPress (headless, via GraphQL)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```
+src/
+├── components/
+│   ├── gallery/        # Gallery grid, cards, lightbox, category pills
+│   ├── home/           # Hero, about section, latest captures
+│   ├── layout/         # Navbar, footer, layout wrapper
+│   ├── shop/           # Product cards and grid
+│   ├── gear/           # Equipment showcase
+│   ├── space-apps/     # Space apps section
+│   └── ui/             # shadcn/ui components
+├── hooks/
+│   ├── useAstroPosts.ts      # Gallery content queries
+│   ├── useAstroProducts.ts   # Shop products
+│   ├── useGear.ts            # Equipment data
+│   └── useSpaceApps.ts       # Space apps data
+├── lib/
+│   ├── graphql.ts      # GraphQL queries and types
+│   ├── utils.ts        # Utility functions
+│   └── mediaParser.ts  # Media URL parsing
+├── pages/
+│   ├── Index.tsx       # Home page
+│   ├── Gallery.tsx     # Photo gallery
+│   ├── About.tsx       # About page
+│   ├── Shop.tsx        # Print shop
+│   ├── Gear.tsx        # Equipment showcase
+│   ├── SpaceApps.tsx   # Space exploration apps
+│   └── NotFound.tsx    # 404 page
+└── assets/             # Static images and assets
+```
 
-Follow these steps:
+## Getting Started
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+### Prerequisites
+
+- Node.js 18+ and npm
+
+### Installation
+
+```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
+cd astro-aperture
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The site will be available at `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Development
 
-**Use GitHub Codespaces**
+### Available Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server with hot reload |
+| `npm run build` | Build for production |
+| `npm run lint` | Run ESLint |
+| `npm run preview` | Preview production build locally |
 
-## What technologies are used for this project?
+### GraphQL API
 
-This project is built with:
+The project connects to a WordPress GraphQL endpoint for content:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+https://jayrosen.design/graphql
+```
 
-## How can I deploy this project?
+Key queries:
+- `GET_ASTRO_POSTS` — Fetch astrophotography posts
+- `GET_POSTS_BY_TAG` — Filter by category tags (nebula, galaxy, moon, etc.)
+- `GET_ASTRO_PRODUCTS` — Fetch shop products
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## Deployment
 
-## Can I connect a custom domain to my Lovable project?
+This project is configured for deployment via Lovable. To publish:
 
-Yes, you can!
+1. Open [Lovable](https://lovable.dev)
+2. Navigate to your project
+3. Click **Share → Publish**
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+For custom domain setup, go to **Project Settings → Domains**.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## License
+
+© Jay Rosen — All rights reserved. Images and content may not be reproduced without permission.
+
+## Links
+
+- **Live Site**: https://astroaperture.lovable.app
+- **Portfolio**: https://jayrosen.design
